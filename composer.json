@@ -4,7 +4,8 @@
     "autoload": {
         "psr-4": {
             "Zgeniuscoders\\Zgeniuscoders\\": "src/",
-            "App\\": "app/"
+            "App\\": "app/",
+            "Database\\": "database/"
         }
     },
     "authors": [
