@@ -4,10 +4,26 @@
 namespace App\Controllers;
 
 
+use Zgeniuscoders\Zgeniuscoders\Router\Router;
+use Psr\Http\Message\ResponseInterface as Response;
+use Psr\Http\Message\ServerRequestInterface as Request;
+
 class MainController extends Controller
 {
-    public function index()
+    /**
+     * @param Router $router
+     */
+    public function __construct(Router $router)
     {
-        echo "pk";
+        $router->get('/',[$this, 'index'],'home');
+    }
+
+    /**
+     * @param Request $request
+     * @return Response
+     */
+    public function index(Request $request): Response
+    {
+        echo "fff";
     }
 }

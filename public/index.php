@@ -1,18 +1,22 @@
 <?php
 
 use App\Controllers\MainController;
-use Zgeniuscoders\Zgeniuscoders\Router\Exceptions\RouterException;
-use Zgeniuscoders\Zgeniuscoders\Router\Router;
+use Whoops\Run;
+use Whoops\Handler\PrettyPageHandler;
+use Zgeniuscoders\Zgeniuscoders\Module\App;
+
+use function Http\Response\send;
 
 require "../vendor/autoload.php";
+require "../bootstrap/app.php";
 
+$whoops = new Run;
+$whoops->pushHandler(new PrettyPageHandler);
+$whoops->register();
 
-    $router = new Router();
-    $router->get('/',[MainController::class,'index'],'home');
+$app = new App([
+    MainController::class
+]);
 
-
-    try{
-        $router->run();
-    }catch (RouterException $e){
-        return $e->error404();
-    }
+$response = $app->run(GuzzleHttp\Psr7\ServerRequest::fromGlobals());
+send($response);

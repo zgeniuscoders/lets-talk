@@ -6,7 +6,7 @@ namespace App\Model;
 
 use Zgeniuscoders\Zgeniuscoders\Database\Model\Model;
 
-class User extends Model
+class Message extends Model
 {
 
 }
