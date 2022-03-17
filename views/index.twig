@@ -1,0 +1,134 @@
+{% extends 'layout.twig' %}
+
+{%  block content %}
+
+    <section class="users">
+        <header>
+            <div class="content">
+                <img src="" alt="Photo de profil de">
+                <div class="details">
+                    <span><a href="">ZGEnius Matondo</a></span>
+                    <p>Enligne</p>
+                </div>
+            </div>
+            <form action="" method="POST">
+                <button class="logout" name="logout">Se deconnecter</button>
+            </form>
+        </header>
+        <div>
+            <ul class="tabs">
+                <li class="active"><a href="#Home"><i class="fa fa-home"></i> Accueil</a></li>
+                <li><a href="#Groupes"><i class="fa fa-users"></i> Groupes</a></li>
+                <li><a href="#Tools"><i class="fa fa-tools"></i> Configuration</a></li>
+            </ul>
+            <div class="tabs-content">
+                <div class="tab-content active" id="Home">
+                    <div class="search">
+                        <span class="text">Commencez la discution</span>
+                        <input type="search" name="q" id="" placeholder="Rechercher par pseudo">
+                        <button id="searchBtn"><i class="fa fa-search"></i></button>
+                    </div>
+                    <div class="users-list">
+                        <!-- affiche tout les utilisateurs  -->
+                    </div>
+                </div>
+                <div class="tab-content" id="Groupes">nvnvnvnvn 222222</div>
+                <div class="tab-content" id="Tools">
+
+                    <!-- dark mode  -->
+                    <div class="dark-mode">
+                        <label for="dark">Mode sombre</label>
+                        <input type="checkbox" name="" id="dark">
+                    </div>
+
+                    <div class="form" style="padding: 0;">
+                        <form action="" method="POST" enctype="multipart/form-data">
+                            <div class="error-txt">Erreur messages</div>
+
+                            <div class="field input">
+                                <label for="name">Nom</label>
+                                <input type="text" placeholder="Nom" id="name" name="name" required>
+                            </div>
+                            <div class="field input">
+                                <label for="pseudo">Pseudo</label>
+                                <input type="text" placeholder="pseudo" id="pseudo" name="pseudo" required>
+                            </div>
+                            <div class="field input">
+                                <label for="email">Email</label>
+                                <input type="email" placeholder="Votre adress email" id="email" name="email" required>
+                            </div>
+                            <div class="field button">
+                                <input type="submit" value="Modifier">
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- password  -->
+                    <div class="form" style="padding: 0;">
+                        <form action="" method="POST" enctype="multipart/form-data">
+                            <div class="field input">
+                                <label for="password">Mot de pass</label>
+                                <input type="password" placeholder="password" id="password" name="password" required>
+                                <i class="fa fa-eye"></i>
+                            </div>
+                            <div class="field button">
+                                <input type="submit" value="Modifier">
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- profil  -->
+                    <div class="form" style="padding: 0;">
+                        <form action="" method="POST" enctype="multipart/form-data">
+                            <div class="field image">
+                                <label for="profil">Photo profil</label>
+                                <input type="file" id="profil" name="profil" required>
+                            </div>
+                            <div class="field button">
+                                <input type="submit" value="Modifier">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+{%  endblock %}
+
+{% block js %}
+    <script>
+        // tabs
+        const links = Array.from(document.querySelectorAll(".tabs li a"))
+        // const liTabs = document.querySelectorAll(".tabs li")
+
+        function showTabs(link) {
+            link.addEventListener('click', function(e) {
+                // e.preventDefault()
+                const li = link.parentNode
+                const parentDiv = link.parentNode.parentNode.parentNode
+
+                if (li.classList.contains('active')) {
+                    return false;
+                }
+
+                parentDiv.querySelector('.tabs .active').classList.remove('active')
+                li.classList.add('active')
+                parentDiv.querySelector('.tabs-content .active').classList.remove('active')
+                parentDiv.querySelector(link.getAttribute('href')).classList.add('active')
+
+            })
+        }
+
+        links.forEach(function(link) {
+            showTabs(link)
+        })
+
+        const hash = window.location.hash
+        const _link = document.querySelector('a[href="' + hash + '"]')
+        if (_link !== null && !_link.classList.contains('active')) {
+            showTabs(_link)
+        }
+        console.log(hash)
+    </script>
+{% endblock %}

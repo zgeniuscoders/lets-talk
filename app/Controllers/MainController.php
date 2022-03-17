@@ -27,6 +27,6 @@ class MainController extends Controller
      */
     public function index(Request $request)
     {
-        return $this->render->render('layout');
+        return $this->render->render('index');
     }
 }

@@ -1,0 +1,27 @@
+{% extends 'layout.twig' %}
+
+{%  block content %}
+
+<section class="form login">
+    <header>Let's Talk</header>
+    <form action="" method="post" enctype="multipart/form-data">
+        <div class="error-txt">Erreur messages</div>
+        <div class="field input">
+            <label for="email">Email</label>
+            <input type="email" placeholder="Votre adress email" id="email" name="email">
+        </div>
+        <div class="field input">
+            <label for="password">Mot de pass</label>
+            <input type="password" placeholder="Entrez votre mot de pass" id="password" name="password">
+            <i class="fa fa-eye"></i>
+        </div>
+        <div class="field button">
+            <input type="submit" value="Se connecter">
+        </div>
+    </form>
+    <div class="link">
+        <a href="{{ path('user.register') }}">J'ai ne possede pas de compte</a>
+    </div>
+</section>
+
+{% endblock %}

@@ -2,6 +2,7 @@
 
 use Zgeniuscoders\Zgeniuscoders\Module\App;
 use App\Controllers\MainController;
+use App\Controllers\UserController;
 use Twig\Environment;
 use Twig\Loader\FilesystemLoader;
 use Zgeniuscoders\Zgeniuscoders\Render\RenderInterface;
@@ -17,7 +18,8 @@ $twig = new Environment($loader);
 
 $app = new App($container,
 [
-    MainController::class
+    MainController::class,
+    UserController::class
 ]);
 
 $response = $app->run(GuzzleHttp\Psr7\ServerRequest::fromGlobals());

@@ -1,0 +1,41 @@
+{% extends 'layout.twig' %}
+
+{%  block content %}
+
+<section class="form signup">
+    <header>Let's Talk</header>
+    <form action="" method="POST" enctype="multipart/form-data">
+        <div class="error-txt">Erreur messages</div>
+        <div class="name-details">
+            <div class="field input">
+                <label for="name">Nom</label>
+                <input type="text" placeholder="Nom" id="name" name="name" required>
+            </div>
+            <div class="field input">
+                <label for="pseudo">Pseudo</label>
+                <input type="text" placeholder="pseudo" id="pseudo" name="pseudo" required>
+            </div>
+        </div>
+        <div class="field input">
+            <label for="email">Email</label>
+            <input type="email" placeholder="Votre adress email" id="email" name="email" required>
+        </div>
+        <div class="field input">
+            <label for="password">Mot de pass</label>
+            <input type="password" placeholder="password" id="password" name="password" required>
+            <i class="fa fa-eye"></i>
+        </div>
+        <div class="field image">
+            <label for="profil">Photo profil</label>
+            <input type="file" id="profil" name="profil" required>
+        </div>
+        <div class="field button">
+            <input type="submit" value="S'inscrire">
+        </div>
+    </form>
+    <div class="link">
+        <a href="{{ path('user.login') }}">J'ai possede dja un compte</a>
+    </div>
+</section>
+
+{% endblock %}

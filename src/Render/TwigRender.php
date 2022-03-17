@@ -22,10 +22,10 @@ class TwigRender implements RenderInterface
     /**
      * @param string $path
      */
-    public function __construct(string $path)
+    public function __construct(FilesystemLoader $loader,Environment $twig)
     {
-        $this->loader = new FilesystemLoader($path);
-        $this->twig = new Environment($this->loader, []);
+        $this->loader = $loader;
+        $this->twig = $twig;
     }
     /**
      * Permet de rajouter des variables global a tout les vues
