@@ -4,11 +4,11 @@
 namespace Zgeniuscoders\Zgeniuscoders\Module;
 
 use GuzzleHttp\Psr7\Response;
-use Zgeniuscoders\Zgeniuscoders\Router\Router;
-use Interop\Container\ContainerInterface;
+use Psr\Container\ContainerInterface;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
+use Zgeniuscoders\Zgeniuscoders\Router\Router;
 
 class App
 {
@@ -45,12 +45,12 @@ class App
      */
     public function run(ServerRequestInterface $request): ResponseInterface
     {
-        $uri = $request->getUri()->getPath();
-        if (!empty($uri) && $uri[-1] === "/") {
-            return (new Response())
-                ->withStatus(301)
-                ->withHeader('Location', substr($uri, 0, -1));
-        }
+        // $uri = $request->getUri()->getPath();
+        // if (!empty($uri) && $uri[-1] === "/") {
+        //     return (new Response())
+        //         ->withStatus(301)
+        //         ->withHeader('Location', substr($uri, 0, -1));
+        // }
 
         $route = $this->container->get(Router::class)->matches($request);
         if (is_null($route)) {

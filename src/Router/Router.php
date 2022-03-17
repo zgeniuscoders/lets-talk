@@ -2,73 +2,93 @@
 
 namespace Zgeniuscoders\Zgeniuscoders\Router;
 
-use Zgeniuscoders\Zgeniuscoders\Router\Exceptions\RouterException;
+use Router\BaseRouter\Route as BaseRoute;
+use Router\QuickRouter;
+use Psr\Http\Message\ServerRequestInterface;
 
 class Router
 {
-    private array $routes = [];
-    private array $namedRoutes = [];
+    private $router;
 
-    /**
-     * @param string $path
-     * @param callable $callable
-     * @param string|null $name
-     * @return Router
-     */
-    public function get(string $path, callable|array $callable, string $name = null): Router
+    public function __construct()
     {
-        $this->add(path: $path,callable: $callable,name: $name,method: 'GET');
-        return $this;
-    }
-
-    /**
-     * @param string $path
-     * @param callable $callable
-     * @param string|null $name
-     * @return Router
-     */
-    public function post(string $path, callable|array $callable, string $name = null): Router
-    {
-        $this->add(path: $path,callable: $callable,name: $name,method: 'POST');
-        return $this;
+        $this->router = new QuickRouter();
     }
 
     /**
      * @param string $path
      * @param callable $callable
      * @param string $name
-     * @param string $method
-     * @return void
      */
-    public function add(string $path, callable|array $callable, string $name, string $method)
+    private function addRoute(string $path, string $name, callable $callable, array $method)
     {
-        $route = new Route($path, $callable, $name);
-        $this->routes[$method][] = $route;
-        if (!is_null($name)) {
-            $this->namedRoutes[$name] = $route;
-        }
-        return $route;
+        $this->router->addRoute(new BaseRoute($path, $callable, $method, $name));
     }
 
-    public function url(string $name, array $params = null)
+    /**
+     * @param string $path
+     * @param callable $callable
+     * @param string $name
+     */
+    public function get(string $path, callable $callable, string $name)
     {
-        if (!isset($this->namedRoutes[$name])) {
-            throw new RouterException("No route matxhed this name");
-        }
-        $this->namedRoutes[$name]->getUrl($params);
+        $this->addRoute($path, $name, $callable, ['GET']);
     }
 
-    public function run()
+    /**
+     * @param string $path
+     * @param callable $callable
+     * @param string $name
+     */
+    public function post(string $path, callable $callable, string $name)
     {
-        if (!isset($this->routes[$_SERVER["REQUEST_METHOD"]])) {
-            throw new RouterException('The request method doesn\'t exist');
-        }
+        $this->addRoute($path, $name, $callable, ['POST']);
+    }
 
-        foreach ($this->routes[$_SERVER["REQUEST_METHOD"]] as $route) {
-            if ($route->matches($_GET['url'])) {
-                return $route->call();
-            }
+    /**
+     * @param string $path
+     * @param callable $callable
+     * @param string $name
+     */
+    public function delete(string $path, callable $callable, string $name)
+    {
+        $this->addRoute($path, $name, $callable, ['DELETE']);
+    }
+
+    /**
+     * @param string $path
+     * @param callable $callable
+     * @param string $name
+     */
+    public function put(string $path, callable $callable, string $name)
+    {
+        $this->addRoute($path, $name, $callable, ['PUT']);
+    }
+
+    /**
+     * @param string $name
+     * @param array $params
+     * @return string
+     */
+    public function getUri(string $name, array $params = []): ?string
+    {
+        return $this->router->generateUri($name, $params);
+    }
+
+    /**
+     * @param ServerRequestInterface $request
+     * @return Route|null
+     */
+    public function matches(ServerRequestInterface $request): ?Route
+    {
+        $route = $this->router->match($request);
+        if ($route->isSuccess()) {
+            return new Route(
+                name: $route->getMatchedRouteName(),
+                callable: $route->getMatchedMiddleware(),
+                params: $route->getMatchedParams()
+            );
         }
-        throw new RouterException("no matching route 404");
+        return null;
     }
 }

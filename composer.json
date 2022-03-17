@@ -5,7 +5,8 @@
     "psr-4": {
       "Zgeniuscoders\\Zgeniuscoders\\": "src/",
       "App\\": "app/",
-      "Database\\": "database/"
+      "Database\\": "database/",
+      "Router\\": "router/"
     }
   },
   "authors": [

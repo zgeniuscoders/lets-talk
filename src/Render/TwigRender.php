@@ -9,26 +9,62 @@ use Twig\Loader\FilesystemLoader;
 
 class TwigRender implements RenderInterface
 {
-    private FilesystemLoader $twigLoader;
-    private Environment $twig;
+    /**
+     * @var [type] $twig
+     */
+    private $twig;
 
     /**
-     * TwigRender constructor.
-     * @param string $viewPath
+     * @var [type]
      */
-    public function __construct(string $viewPath)
+    private $loader;
+
+    /**
+     * @param string $path
+     */
+    public function __construct(string $path)
     {
-        $this->twigLoader = new FilesystemLoader($viewPath);
-        $this->twig = new Environment($this->twigLoader);
+        $this->loader = new FilesystemLoader($path);
+        $this->twig = new Environment($this->loader, []);
+    }
+    /**
+     * Permet de rajouter des variables global a tout les vues
+     *
+     * @param string $key
+     * @param mixed $value
+     * @return void
+     */
+    public function addGlobal(string $key, $value)
+    {
+        $this->twig->addGlobal($key, $value);
     }
 
     /**
-     * @throws \Twig\Error\RuntimeError
-     * @throws \Twig\Error\SyntaxError
-     * @throws \Twig\Error\LoaderError
+     * Undocumented function
+     *
+     * @param string $view
+     * @param array $params
+     * @return string
      */
-    public function render(string $path, ?array $params)
+    public function render(string $view, array $params = [])
     {
-        echo $this->twig->render($path,$params);
+        return $this->twig->render($view . ".twig", $params);
+    }
+
+    /**
+     * Permet de rajouter un chemin pour le vues
+     *
+     * @param string $namespace
+     * @param null|string $path
+     * @return void
+     */
+    public function addPath(string $namespace, $path = null)
+    {
+        $this->loader->addPath($path, $namespace);
+    }
+
+    public function addFunction($function)
+    {
+        $this->twig->addFunction($function);
     }
 }
