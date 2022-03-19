@@ -10,8 +10,59 @@ class Model
 {
     protected string $table;
 
-    public function __construct(DBConnection $db)
+    public function __construct(private DBConnection $db)
     {
+    }
 
+    private function query(string $sql, array $params = [], bool $fetch = true)
+    {
+        if(strpos($sql,'INSERT') or strpos($sql,'DELETE') or strpos($sql,'UPDATE'))
+        {
+
+        }
+        if (!is_null($params)) {
+            $stmnt = $this->db->getPDO()->prepare($sql);
+            $stmnt->execute($params);
+        } else {
+            $stmnt = $this->db->getPDO()->query($sql);
+        }
+
+        if ($fetch) {
+            return $stmnt->fetch();
+        }
+
+        return $stmnt->fetchAll();
+    }
+
+    public function all()
+    {
+        return $this->query("SELECT * FROM $this->table");
+    }
+
+    public function create(array $data)
+    {
+        $paranthesis1 = "";
+        $paranthesis2  = "";
+        $i = 0;
+
+        foreach ($data as $key => $value)
+        {
+            $comma = $i === count($data) ? "" : ", ";
+            $paranthesis1 .= "{$key}{$comma}";
+            $paranthesis2 .= ":{$key}{$comma}";
+            $i++;
+        }
+        $sal = 'INSERTC INTO';
+        return $this->query("INSERT INTO {$this->table}($paranthesis1) VALUES($paranthesis2)",$data);
+    }
+
+    public function take(int $lenght): array
+    {
+        return $this->query("SELECT * FROM $this->table ORDER BY created_at DESC LIMIT $lenght");
+    }
+
+    public function where(string $key,string $value)
+    {
+        return $this->query("SELECT $key FROM $this->table WHERE $key = ?",[$value]);
     }
 }

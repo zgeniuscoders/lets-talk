@@ -3,19 +3,34 @@
 
 namespace App\Controllers;
 
+use App\Model\User;
+use GuzzleHttp\Psr7\ServerRequest;
+use Zgeniuscoders\Zgeniuscoders\Database\DBConnection;
 use Zgeniuscoders\Zgeniuscoders\Router\Router;
 use Zgeniuscoders\Zgeniuscoders\Render\RenderInterface;
 
 
 class UserController extends Controller
 {
-    private $render;
+    /**
+     * permet de rendre les vue twig
+     * @var RenderInterface
+     */
+    private RenderInterface $render;
 
-    public function __construct(Router $router, RenderInterface $render)
+    /**
+     * @var DBConnection
+     */
+    private DBConnection $db;
+
+    public function __construct(Router $router, RenderInterface $render,DBConnection $db)
     {
+        $this->db = $db;
         $this->render = $render;
         $router->get('/connexion', [$this, 'login'], 'user.login');
+
         $router->get('/inscription', [$this, 'register'], 'user.register');
+        $router->post('/inscription',[$this, 'create'],'user.register.create');
         // $router->get('/mot-de-pass-oublier', [$this, 'forgot'], 'user.forgot');
         $router->get('/reinitialisation-mot-de-pass', [$this, 'register'], 'user.reset');
     }
@@ -23,6 +38,12 @@ class UserController extends Controller
     public function login()
     {
         return $this->render->render('auth/login');
+    }
+
+    public function create(ServerRequest $request)
+    {
+        $user = new User($this->db);
+        $user->create($request->getParsedBody());
     }
 
     public function register()

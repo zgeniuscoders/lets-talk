@@ -29,18 +29,5 @@ final class CreateUsersTable extends AbstractMigration
                 'null' => true
             ])
             ->create();
-
-        $this->table('messages')
-            ->addColumn('sender_id','integer')
-            ->addColumn('recever_id','integer')
-            ->addForeignKey('sender_id','users','id',[
-                'delete' => 'CASCADE',
-                'update' => 'NO_ACTION'
-            ])
-            ->addForeignKey('recever_id','users','id',[
-                'delete' => 'CASCADE',
-                'update' => 'NO_ACTION'
-            ])
-            ->update();
     }
 }
