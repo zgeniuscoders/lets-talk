@@ -17,5 +17,5 @@ return [
     Router::class => DI\create(),
     RenderInterface::class => DI\factory(TwigRenderFactory::class),
 
-    DBConnection::class => DI\create()->constructor('letstalk','localhost','root','')
+    DBConnection::class => DI\create()->constructor('localhost','letstalk','root','')
 ];

@@ -1,0 +1,6 @@
+<?php
+
+    function store($file)
+    {
+
+    }

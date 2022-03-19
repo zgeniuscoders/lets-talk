@@ -32,16 +32,15 @@ class DBConnection
      */
     public function getPDO() : PDO
     {
-        if(is_null($this->_instance))
-        {
-            $this->_instance = new PDO("mysql:dbname=$this->dbname;
-                                            host=$this->host",
-                                            $this->username,
-                                            $this->password,[
-                                            PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-                                            PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_CLASS
-                                        ]);
-        }
-        return $this->_instance;
+        return  new PDO(
+            "mysql:dbname={$this->dbname};
+                host={$this->host}",
+                $this->username,
+                $this->password,
+                [
+                    PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+                    PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_OBJ
+                ]
+        );
     }
 }

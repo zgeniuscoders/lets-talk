@@ -65,4 +65,26 @@ class Model
     {
         return $this->query("SELECT $key FROM $this->table WHERE $key = ?",[$value]);
     }
+
+    /**
+     * verifie si une valeur existe dans la table
+     * @param string $field
+     * @param $value
+     * @return bool
+     */
+    public function exists(string $field, $value, ?int $execpt = null): bool
+    {
+        $sql = "SELECT COUNT(id) FROM {$this->table} WHERE $field = ?";
+        $params = [$value];
+        if($execpt !== null)
+        {
+            $sql .= " AND id != ?";
+            $params[] = $execpt;
+        }
+        $stmt = $this->db->getPDO()->prepare($sql);
+        $stmt->execute($params);
+
+        return (int)$stmt->fetch(\PDO::FETCH_NUM)[0] > 0;
+
+    }
 }

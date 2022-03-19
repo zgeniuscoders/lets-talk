@@ -8,6 +8,7 @@ use GuzzleHttp\Psr7\ServerRequest;
 use Zgeniuscoders\Zgeniuscoders\Database\DBConnection;
 use Zgeniuscoders\Zgeniuscoders\Router\Router;
 use Zgeniuscoders\Zgeniuscoders\Render\RenderInterface;
+use Zgeniuscoders\Zgeniuscoders\Validation\RequestValidator;
 
 
 class UserController extends Controller
@@ -43,7 +44,20 @@ class UserController extends Controller
     public function create(ServerRequest $request)
     {
         $user = new User($this->db);
+        $validator = new RequestValidator($request->getParsedBody(),lang: 'fr');
+        $validator->rules([
+            'required' => ['name','pseudo','email','password'],
+            'email' => ['email'],
+            'length' => [['password', 6]]
+        ]);
+        $validator->rule(function ($field,$value) use ($user) {
+            return !$user->exists($field,$value);
+        },['email']);
+        $validator->validate();
+        dd($validator->errors());
+        /*
         $user->create($request->getParsedBody());
+        */
     }
 
     public function register()
