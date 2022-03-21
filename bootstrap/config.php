@@ -1,5 +1,6 @@
 <?php
 
+use App\Request\UserRequest;
 use Psr\Container\ContainerInterface;
 use Zgeniuscoders\Zgeniuscoders\Database\DBConnection;
 use Zgeniuscoders\Zgeniuscoders\Render\RenderInterface;
@@ -17,5 +18,6 @@ return [
     Router::class => DI\create(),
     RenderInterface::class => DI\factory(TwigRenderFactory::class),
 
-    DBConnection::class => DI\create()->constructor('localhost','letstalk','root','')
+    DBConnection::class => DI\create()->constructor('localhost','letstalk','root',''),
+    UserRequest::class => DI\create()
 ];
