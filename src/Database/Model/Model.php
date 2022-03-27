@@ -14,6 +14,12 @@ class Model
     {
     }
 
+    /**
+     * @param string $sql
+     * @param array $params
+     * @param bool $fetch
+     * @return array|mixed
+     */
     private function query(string $sql, array $params = [], bool $fetch = true)
     {
         if(strpos($sql,'INSERT') or strpos($sql,'DELETE') or strpos($sql,'UPDATE'))
@@ -34,16 +40,25 @@ class Model
         return $stmnt->fetchAll();
     }
 
+    /**
+     * get all data
+     * @return array|mixed
+     */
     public function all()
     {
         return $this->query("SELECT * FROM $this->table");
     }
 
-    public function create(array $data)
+    /**
+     * insert data
+     * @param array $data
+     * @return void
+     */
+    public function create(array $data): void
     {
         $paranthesis1 = "";
         $paranthesis2  = "";
-        $i = 0;
+        $i = 1;
 
         foreach ($data as $key => $value)
         {
@@ -52,22 +67,62 @@ class Model
             $paranthesis2 .= ":{$key}{$comma}";
             $i++;
         }
-        $sal = 'INSERTC INTO';
-        return $this->query("INSERT INTO {$this->table}($paranthesis1) VALUES($paranthesis2)",$data);
+        $sal = 'INSERT INTO';
+        $this->query("INSERT INTO {$this->table} ($paranthesis1) VALUES($paranthesis2)",$data);
     }
 
+    /**
+     * update data
+     * @param int $id
+     * @param array $data
+     * @return void
+     */
+    public function update(int $id, array $data): void
+    {
+        $sqlRequestPart = "";
+        $i = 1;
+
+        foreach ($data as $key => $value)
+        {
+            $comma = $i = count($data) ? " " : ', ';
+            $sqlRequestPart .= "{$key} = :{$key}{$comma}";
+            $i++;
+        }
+
+        $data['id'] = $id;
+
+        $this->query("UPDATE {$this->table} SET {$sqlRequestPart} WHERE id = :id",$data);
+    }
+
+    /**
+     * @param int $id
+     */
+    public function delete(int $id): void
+    {
+        $this->query("DELETE * FROM {$this->table} WHERE id = ?",$id);
+    }
+
+    /**
+     * @param int $lenght
+     * @return array
+     */
     public function take(int $lenght): array
     {
         return $this->query("SELECT * FROM $this->table ORDER BY created_at DESC LIMIT $lenght");
     }
 
-    public function where(string $key,string $value)
+    /**
+     * @param string $key
+     * @param string $value
+     * @return array|mixed
+     */
+    public function where(string $key, string $value)
     {
         return $this->query("SELECT $key FROM $this->table WHERE $key = ?",[$value]);
     }
 
     /**
-     * verifie si une valeur existe dans la table
+     * check if a value exist in the table
      * @param string $field
      * @param $value
      * @return bool

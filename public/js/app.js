@@ -2,7 +2,16 @@
 //   '.form .field input[type="password"]'
 // );
 // const toggleBtn = document.querySelector(".form .field i");
+const search = document.querySelector(".users .search input");
+const searchBtn = document.querySelector(".users .search button");
+const usersList = document.querySelector('.users-list')
 
+
+searchBtn.addEventListener("click", function() {
+    search.classList.toggle("active");
+    search.focus();
+    searchBtn.classList.toggle("active");
+});
 
 // const errorText = document.querySelector(".error-txt");
 

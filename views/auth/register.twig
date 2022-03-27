@@ -5,29 +5,34 @@
 <section class="form signup">
     <header>Let's Talk</header>
     <form action="{{ path('user.register.create') }}" method="POST" enctype="multipart/form-data">
-        <div class="error-txt">Erreur messages</div>
+{#        {% if(errors) %}#}
+{#        <div class="error-txt" style="display: block">#}
+{#            {% for(error in errors) %}#}
+{#                <li>dd</li>#}
+{#            {% endfor %}#}
+{#        </div>#}
+{#        {% endif %}#}
+{#        {{ input('pseudo','Pseudo','text') }}#}
+{#        {{ input('email','Email','email') }}#}
+{#        {{ input('password','Mot de pass','password') }}#}
+{#        {{ input('profil','Votre photo de profile','file') }}#}
         <div class="name-details">
             <div class="field input">
-                <label for="name">Nom</label>
-                <input type="text" placeholder="Nom" id="name" name="name" required>
+                {{ input('name','Nom','text') }}
             </div>
             <div class="field input">
-                <label for="pseudo">Pseudo</label>
-                <input type="text" placeholder="pseudo" id="pseudo" name="pseudo" required>
+                {{ input('pseudo','Pseudo','text') }}
             </div>
         </div>
         <div class="field input">
-            <label for="email">Email</label>
-            <input type="email" placeholder="Votre adress email" id="email" name="email" required>
+            {{ input('email','Email','email') }}
         </div>
         <div class="field input">
-            <label for="password">Mot de pass</label>
-            <input type="password" placeholder="password" id="password" name="password" required>
+            {{ input('password','Mot de pass','password') }}
             <i class="fa fa-eye"></i>
         </div>
         <div class="field image">
-            <label for="profil">Photo profil</label>
-            <input type="file" id="profil" name="profil" required>
+            {{ input('profil','Votre photo de profile','file') }}
         </div>
         <div class="field button">
             <input type="submit" value="S'inscrire">

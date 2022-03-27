@@ -6,6 +6,7 @@ namespace Zgeniuscoders\Zgeniuscoders\Render;
 use Psr\Container\ContainerInterface;
 use Twig\Environment;
 use Twig\Loader\FilesystemLoader;
+use Zgeniuscoders\Zgeniuscoders\Helpers\TwigFormExtension;
 use Zgeniuscoders\Zgeniuscoders\Helpers\TwigFunction;
 use Zgeniuscoders\Zgeniuscoders\Router\RouterTwigExtension;
 
@@ -18,6 +19,7 @@ class TwigRenderFactory{
         $loader = new FilesystemLoader($path);
         $twig = new Environment($loader);
         $twig->addExtension($container->get(TwigFunction::class));
+        $twig->addExtension($container->get(TwigFormExtension::class));
         $twig->addExtension($container->get(RouterTwigExtension::class));
 
         return new TwigRender($loader,$twig);

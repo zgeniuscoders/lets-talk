@@ -4,7 +4,7 @@
 namespace Zgeniuscoders\Zgeniuscoders\App\Request;
 
 
-interface RequestInterface
+interface RequestValidationInterface
 {
 
 }

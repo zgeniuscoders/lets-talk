@@ -4,12 +4,11 @@
 namespace App\Controllers;
 
 use App\Model\User;
-use App\Request\UserRequest;
 use GuzzleHttp\Psr7\ServerRequest;
 use Zgeniuscoders\Zgeniuscoders\Database\DBConnection;
 use Zgeniuscoders\Zgeniuscoders\Router\Router;
 use Zgeniuscoders\Zgeniuscoders\Render\RenderInterface;
-use function Zgeniuscoders\Zgeniuscoders\Helpers\store;
+use Zgeniuscoders\Zgeniuscoders\Validation\Validator;
 
 class UserController extends Controller
 {
@@ -36,43 +35,79 @@ class UserController extends Controller
         $router->get('/reinitialisation-mot-de-pass', [$this, 'register'], 'user.reset');
     }
 
+    /**
+     * @return mixed
+     */
     public function login()
     {
         return $this->render->render('auth/login');
     }
 
-    public function create(ServerRequest $request,UserRequest $userRequest)
+    /**
+     * @param ServerRequest $request
+     * @return mixed
+     */
+    public function create(ServerRequest $request)
     {
-        // $user = new User($this->db);
-        // $validator = new UserRequest($request->getParsedBody(),$user);
-        // // $avatar = store($_FILES);
+        $validator = $this->getValidator($request);
+            $user = new User($this->db);
+            $password = password_hash($request->getParsedBody()["password"],PASSWORD_BCRYPT);
 
-        // dd($validator->errors());
+            $user->create([
+                'uuid' => uniqid(),
+                'name' => $request->getParsedBody()["name"],
+                'pseudo' => $request->getParsedBody()["pseudo"],
+                'email' => $request->getParsedBody()["email"],
+                'password' => $password,
+                'profil' => '1.jpg'
+            ]);
+            dd("okay");
 
-        // if ($validator->validate()) {
-        //     $user->create([
-        //         'uuid' => uniqid(),
-        //         'name' => $request->getParsedBody()["name"],
-        //         'pseudo' => $request->getParsedBody()["pseudo"],
-        //         'email' => $request->getParsedBody()["email"],
-        //         'password' => password_hash($request->getParsedBody()["password"], PASSWORD_BCRYPT),
-        //         'profil' => $avatar
-        //     ]);
-        // }
+//
+//        $errors = $validator->errors();
+//        dd($errors);
+//        return $this->render->render('auth/register',compact('errors'));
+
     }
 
+    /**
+     * @return mixed
+     */
     public function register()
     {
         return $this->render->render('auth/register');
     }
 
+    /**
+     * @return mixed
+     */
     public function forget()
     {
         return $this->render->render('auth/forget');
     }
 
+    /**
+     * @return mixed
+     */
     public function reset()
     {
         return $this->render->render('auth/reset');
+    }
+
+    /**
+     * @param ServerRequest $request
+     * @return Validator
+     */
+    private function getValidator(ServerRequest $request): Validator
+    {
+        return (new Validator([
+            $request->getParsedBody()["name"],
+            $request->getParsedBody()["email"],
+            $request->getParsedBody()["password"],
+            $request->getParsedBody()["pseudo"]
+        ]))
+            ->required('name','pseudo','email','password')
+            ->notEmpty('name','pseudo','email','password')
+            ->length('password',6);
     }
 }

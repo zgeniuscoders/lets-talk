@@ -32,6 +32,7 @@
     "middlewares/whoops": "^2.0",
     "michelf/php-markdown": "^1.9",
     "filp/whoops": "^2.14",
-    "ext-pdo": "*"
+    "ext-pdo": "*",
+    "doctrine/orm": "^2.11"
   }
 }
