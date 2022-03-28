@@ -3,14 +3,14 @@
 
 namespace App\Controllers;
 
-use App\Model\User;
+use App\Models\User;
 use GuzzleHttp\Psr7\ServerRequest;
 use Zgeniuscoders\Zgeniuscoders\Database\DBConnection;
 use Zgeniuscoders\Zgeniuscoders\Router\Router;
 use Zgeniuscoders\Zgeniuscoders\Render\RenderInterface;
 use Zgeniuscoders\Zgeniuscoders\Validation\Validator;
 
-class UserController extends Controller
+class UserController
 {
     /**
      * permet de rendre les vue twig

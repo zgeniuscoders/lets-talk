@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App\Model;
+namespace App\Models;
 
 
 use Zgeniuscoders\Zgeniuscoders\Database\Model\Model;

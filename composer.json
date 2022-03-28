@@ -33,6 +33,10 @@
     "michelf/php-markdown": "^1.9",
     "filp/whoops": "^2.14",
     "ext-pdo": "*",
-    "doctrine/orm": "^2.11"
+    "doctrine/orm": "^2.11",
+    "doctrine/cache": "^2.1",
+    "symfony/cache": "^6.0",
+    "doctrine/annotations": "^1.13",
+    "vlucas/phpdotenv": "^5.4"
   }
 }

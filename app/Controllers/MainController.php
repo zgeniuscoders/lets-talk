@@ -9,9 +9,10 @@ use Zgeniuscoders\Zgeniuscoders\Router\Router;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Zgeniuscoders\Zgeniuscoders\Render\RenderInterface;
 
-class MainController extends Controller
+class MainController
 {
-    private $render;
+    private RenderInterface $render;
+
     /**
      * @param Router $router
      */

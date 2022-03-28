@@ -1,5 +1,6 @@
 <?php
 
+use Doctrine\ORM\EntityManager;
 use Zgeniuscoders\Zgeniuscoders\Module\App;
 use App\Controllers\MainController;
 use App\Controllers\UserController;
@@ -13,8 +14,6 @@ use function Http\Response\send;
 require "../vendor/autoload.php";
 require "../bootstrap/app.php";
 
-$loader = new FilesystemLoader($container->get('VIEWS_PATH'));
-$twig = new Environment($loader);
 
 $app = new App($container,
 [
