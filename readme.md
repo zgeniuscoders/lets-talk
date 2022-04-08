@@ -5,7 +5,7 @@
 <p>pour participer au project il vous suffit de cloner la depot 
 <a href="https://www.github.com">github</a></p>
 
-    git clone nom_du_depot
+    git clone https://github.com/zgeniuscoders/lets-talk.git
 
 ### Instalation de dependances
 
