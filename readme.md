@@ -11,22 +11,12 @@
 
     composer install
 
-### Migrations de donnees
-<p>Vous devez d'abbord cree une base de donnee au nom de lets-talk</p>
-
-    php vendor/bin/phinx migrate 
-
 
 ## Mes contactez
 <p>
-    <a href="https://www.facebook.com">Facebook</a>
+    <a href="https://web.facebook.com/ZGeniusCodeur">Facebook</a>
 </p>
-<p>
-    <a href="https://www.facebook.com">Instagram</a>
-</p>
-<p>
-    <a href="https://www.facebook.com">Twitter</a>
-</p>
+
 
 <p><a href="mailto:zgeniuscoders@gmail.com">Envoyer moi un email</a></p>
 <p>By zgeniuscodes </p>
