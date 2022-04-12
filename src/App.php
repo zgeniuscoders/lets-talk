@@ -65,7 +65,7 @@ class App
         $response = call_user_func_array($route->getCallback(), [$request]);
         if (is_string($response)) {
             return new Response(body: $response);
-        } elseif ($response instanceof RequestInterface) {
+        } elseif ($response instanceof ResponseInterface) {
             return $response;
         } else {
             throw new \Exception("The response is not a string or an instance of ResponseInterface");

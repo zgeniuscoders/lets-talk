@@ -4,7 +4,7 @@
 namespace Zgeniuscoders\Zgeniuscoders\Middlwares;
 
 
-class Auth
+class MiddlewareException extends \Exception
 {
 
 }
