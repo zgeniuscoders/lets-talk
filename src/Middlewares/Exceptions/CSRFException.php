@@ -1,10 +1,8 @@
 <?php
 
-
 namespace Zgeniuscoders\Zgeniuscoders\Middlewares\Exceptions;
 
-
-class CSRFException
+class CSRFException extends \Exception
 {
 
 }

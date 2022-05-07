@@ -1,11 +1,12 @@
 <?php
 
-namespace Zgeniuscoders\Zgeniuscoders\Helpers;
+namespace Zgeniuscoders\Zgeniuscoders\Router;
 
 use GuzzleHttp\Psr7\Response;
 use Psr\Http\Message\ResponseInterface;
 
-trait RouterAware{
+trait RouterAware
+{
 
     /**
      * send a response of redirect
@@ -15,9 +16,9 @@ trait RouterAware{
      */
     public function redirect(string $path, array $params = []): ResponseInterface
     {
-        $uri = $this->router->getUri($path,$params);
+        $uri = $this->router->getUri($path, $params);
         return (new Response())
-            ->withStatus(301)
-            ->withHeader('location',$uri);
+            ->withStatus(200)
+            ->withHeader('location', $uri);
     }
 }

@@ -3,24 +3,29 @@
 {%  block content %}
 
     <section class="users">
+
         <header>
             <div class="content">
-                <img src="" alt="Photo de profil de">
+                <img src="{{ storage(auth().profile) }}" alt="Photo de profil de {{ auth().pseudo }}">
                 <div class="details">
-                    <span><a href="">ZGEnius Matondo</a></span>
-                    <p>Enligne</p>
+                    <span><a href="">{{ auth().pseudo }} {{ auth().name }}</a></span>
+                    <p>En ligne</p>
                 </div>
             </div>
-            <form action="" method="POST">
+            <form action="{{ path('logout') }}" method="POST">
+                {{ __csrf() }}
                 <button class="logout" name="logout">Se deconnecter</button>
             </form>
         </header>
+
         <div>
             <ul class="tabs">
                 <li class="active"><a href="#Home"><i class="fa fa-home"></i> Accueil</a></li>
                 <li><a href="#Groupes"><i class="fa fa-users"></i> Groupes</a></li>
                 <li><a href="#Tools"><i class="fa fa-tools"></i> Configuration</a></li>
             </ul>
+
+
             <div class="tabs-content">
                 <div class="tab-content active" id="Home">
                     <div class="search">
@@ -28,10 +33,24 @@
                         <input type="search" name="q" id="" placeholder="Rechercher par pseudo">
                         <button id="searchBtn"><i class="fa fa-search"></i></button>
                     </div>
+                    {% for user in users %}
                     <div class="users-list">
-                        <!-- affiche tout les utilisateurs  -->
+                        <a href="{{ path('message.index',{uuid: user.uuid}) }}">
+                            <div class="content">
+                                <img src="{{ storage(user.profile) }}" alt="Photo de profil de {{ user.pseudo }}">
+                                <div class="details">
+                                    <span>{{ user.pseudo }} {{ user.name }}</span>
+                                    <p>Vas y ecrit moi</p>
+                                </div>
+                            </div>
+                            <div class="status-dot">
+                                <i class="fa fa-circle"></i>
+                            </div>
+                        </a>
                     </div>
+                    {% endfor %}
                 </div>
+
                 <div class="tab-content" id="Groupes">nvnvnvnvn 222222</div>
                 <div class="tab-content" id="Tools">
 

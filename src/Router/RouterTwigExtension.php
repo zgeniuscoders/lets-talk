@@ -17,12 +17,12 @@ class RouterTwigExtension extends AbstractExtension
     public function getFunctions(): array
     {
         return [
-          new TwigFunction('path',[$this, 'getPath'])
+          new TwigFunction('path', [$this, 'getPath'])
         ];
     }
 
-    public function getPath(string $path,array $params = []): string
+    public function getPath(string $path, array $params = []): string
     {
-        return $this->router->getUri($path,$params);
+        return $this->router->getUri($path, $params);
     }
 }

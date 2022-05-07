@@ -8,7 +8,7 @@ use Psr\Http\Message\ServerRequestInterface;
 
 class Router
 {
-    private $router;
+    private QuickRouter $router;
 
     public function __construct()
     {
@@ -17,8 +17,9 @@ class Router
 
     /**
      * @param string $path
-     * @param callable $callable
      * @param string $name
+     * @param callable $callable
+     * @param array $method
      */
     private function addRoute(string $path, string $name, callable $callable, array $method)
     {
@@ -68,7 +69,7 @@ class Router
     /**
      * @param string $name
      * @param array $params
-     * @return string
+     * @return string|null
      */
     public function getUri(string $name, array $params = []): ?string
     {

@@ -3,8 +3,7 @@
 
 namespace Zgeniuscoders\Zgeniuscoders\Auth\Exceptions;
 
-
-class ForbiddenException
+class ForbiddenException extends \Exception
 {
 
 }

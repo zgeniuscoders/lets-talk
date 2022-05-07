@@ -1,16 +1,19 @@
 <?php
 
 
-namespace Zgeniuscoders\Zgeniuscoders\Module;
+namespace Zgeniuscoders\Zgeniuscoders;
 
-use GuzzleHttp\Psr7\Response;
+use Exception;
+use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\ContainerInterface;
-use Psr\Http\Message\RequestInterface;
+use Psr\Container\NotFoundExceptionInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
-use Zgeniuscoders\Zgeniuscoders\Router\Router;
+use Psr\Http\Server\MiddlewareInterface;
+use Psr\Http\Server\RequestHandlerInterface;
+use Zgeniuscoders\Zgeniuscoders\Middlewares\MiddlewareException;
 
-class App
+class App implements RequestHandlerInterface
 {
     /**
      * @var ContainerInterface
@@ -18,23 +21,111 @@ class App
     private $container;
 
     /**
-     * @param array $controllers
-     *
      * @var array
      */
     private array $controllers;
 
     /**
-     * @param ContainerInterface $container
-     * @param array $controllers
+     * @var array
      */
-    public function __construct(ContainerInterface $container, array $controllers)
-    {
-        $this->container = $container;
-        // $this->container->get(RenderInterface::class)->addGlobal("router", $this->container->get(Router::class));
+    private array $middlewares;
 
-        foreach ($controllers as $controller) {
-            $this->controllers[] = $container->get($controller);
+    /**
+     * @var int
+     */
+    private int $index = 0;
+
+
+    /**
+     * App constructor.
+     * @param string $configPath
+     */
+    public function __construct(private string $configPath)
+    {
+    }
+
+    /**
+     * @param string $controller
+     * @return $this
+     */
+    public function addController(string $controller): self
+    {
+        $this->controllers[] = $controller;
+        return $this;
+    }
+
+    /**
+     * @param string $middleware
+     * @return $this
+     */
+    public function addMiddleware(string $middleware): self
+    {
+        $this->middlewares[] = $middleware;
+        return $this;
+    }
+
+    /**
+     * @return ContainerInterface
+     * @throws Exception
+     */
+    public function getContainer(): ContainerInterface
+    {
+
+        if ($this->container === null) {
+            $builder = new \DI\ContainerBuilder();
+
+//            if(getenv('APP_ENV') != 'dev')
+//            {
+//                $builder->enableDefinitionCache([new FilesystemCache('temp/di')]);
+//                $builder->writeProxiesToFile(true,'temp/proxies');
+//            }
+
+            $builder->useAutowiring(true);
+            $builder->addDefinitions($this->configPath);
+            $this->container = $builder->build();
+        }
+
+        return $this->container;
+    }
+
+    /**
+     * @return object|null
+     * @throws ContainerExceptionInterface
+     * @throws NotFoundExceptionInterface
+     */
+    private function getMiddlewares(): ?object
+    {
+        if (array_key_exists($this->index, $this->middlewares)) {
+            $middleware = $this->container->get($this->middlewares[$this->index]);
+            $this->index++;
+            return $middleware;
+        }
+
+        return null;
+    }
+
+    /**
+     * @return array
+     */
+    public function getControllers(): array
+    {
+        return $this->controllers;
+    }
+
+    /**
+     * @param ServerRequestInterface $request
+     * @return ResponseInterface
+     * @throws ContainerExceptionInterface
+     * @throws MiddlewareException
+     * @throws NotFoundExceptionInterface
+     */
+    public function handle(ServerRequestInterface $request): ResponseInterface
+    {
+        $middleware = $this->getMiddlewares();
+        if (is_null($middleware)) {
+            throw new MiddlewareException("Aucun middleware n'a géré cette request");
+        } elseif ($middleware instanceof MiddlewareInterface) {
+            return $middleware->process($request, $this);
         }
     }
 
@@ -42,33 +133,18 @@ class App
      * run
      * @param ServerRequestInterface $request
      * @return ResponseInterface
+     * @throws ContainerExceptionInterface
+     * @throws MiddlewareException
+     * @throws NotFoundExceptionInterface
      */
     public function run(ServerRequestInterface $request): ResponseInterface
     {
-        // $uri = $request->getUri()->getPath();
-        // if (!empty($uri) && $uri[-1] === "/") {
-        //     return (new Response())
-        //         ->withStatus(301)
-        //         ->withHeader('Location', substr($uri, 0, -1));
-        // }
 
-        $route = $this->container->get(Router::class)->matches($request);
-        if (is_null($route)) {
-            return new Response(status: 404, body: '<h1>404</h1>');
+        foreach ($this->controllers as $controller) {
+            $this->getContainer()->get($controller);
         }
 
-        $params = $route->getParams();
-        $request = array_reduce(array_keys($params), function ($request, $key) use ($params) {
-            return $request->withAttribute($key, $params[$key]);
-        }, $request);
-
-        $response = call_user_func_array($route->getCallback(), [$request]);
-        if (is_string($response)) {
-            return new Response(body: $response);
-        } elseif ($response instanceof ResponseInterface) {
-            return $response;
-        } else {
-            throw new \Exception("The response is not a string or an instance of ResponseInterface");
-        }
+        return $this->handle($request);
     }
+
 }

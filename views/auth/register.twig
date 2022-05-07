@@ -5,13 +5,7 @@
 <section class="form signup">
     <header>Let's Talk</header>
     <form action="{{ path('user.register.create') }}" method="POST" enctype="multipart/form-data">
-{#        {% if(errors) %}#}
-{#        <div class="error-txt" style="display: block">#}
-{#            {% for(error in errors) %}#}
-{#                <li>dd</li>#}
-{#            {% endfor %}#}
-{#        </div>#}
-{#        {% endif %}#}
+        {{ __csrf() }}
         <div class="name-details">
             <div class="field input">
                 {{ input('name','Nom','text') }}
@@ -28,7 +22,7 @@
             <i class="fa fa-eye"></i>
         </div>
         <div class="field image">
-            {{ input('profil','Votre photo de profile','file') }}
+            {{ input('profile','Votre photo de profile','file') }}
         </div>
         <div class="field button">
             <input type="submit" value="S'inscrire">

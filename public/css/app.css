@@ -30,6 +30,12 @@
     --tab-active: #181a1e;
     --default-color: #fff;
 }
+
+
+.error{
+    color: #721c24;
+    padding: 5px 0;
+}
 body{
     display: flex;
     align-items: center;
@@ -65,7 +71,6 @@ body{
     border-radius: 5px;
     margin-bottom: 10px;
     border: 1px solid #f5c6cb;
-    display: none;
 }
 .error-txt li{
     list-style: none !important;
@@ -126,6 +131,9 @@ form .name-details .field:last-child
     color: #fff;
     border-radius: 5px;
     cursor: pointer;
+}
+.form form input.has-error{
+    border: 2px solid #721c24;
 }
 .form .link{
     text-align: center;

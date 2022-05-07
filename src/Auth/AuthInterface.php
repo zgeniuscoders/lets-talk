@@ -3,8 +3,10 @@
 
 namespace Zgeniuscoders\Zgeniuscoders\Auth;
 
-
-class AuthInterface
+interface AuthInterface
 {
-
+    /**
+     * @return User|null
+     */
+    public function getUser(): ?User;
 }

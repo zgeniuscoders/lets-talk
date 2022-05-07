@@ -3,18 +3,27 @@
 
 namespace App\Controllers;
 
+use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityRepository;
+use Doctrine\Persistence\ObjectRepository;
 use Zgeniuscoders\Zgeniuscoders\Render\RenderInterface;
-use Zgeniuscoders\Zgeniuscoders\Render\TwigRender;
 use Zgeniuscoders\Zgeniuscoders\Router\Router;
+use Zgeniuscoders\Zgeniuscoders\Router\RouterAware;
 
 class Controller
 {
-    protected Router $router;
-    protected RenderInterface $render;
+    use RouterAware;
 
-    public function __construct(Router $router, RenderInterface $render)
+    public function __construct(
+        protected Router $router,
+        protected RenderInterface $render,
+        protected EntityManager $em
+    )
     {
-        $this->router = $router;
-        $this->render = $render;
+    }
+
+    public function getRepository($entityName): EntityRepository|ObjectRepository
+    {
+        return $this->em->getRepository($entityName);
     }
 }

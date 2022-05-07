@@ -1,8 +1,7 @@
 <?php
 
 
-namespace Zgeniuscoders\Zgeniuscoders\Middlwares;
-
+namespace Zgeniuscoders\Zgeniuscoders\Middlewares;
 
 class MiddlewareException extends \Exception
 {

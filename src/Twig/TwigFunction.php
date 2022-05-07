@@ -1,6 +1,6 @@
 <?php
 
-namespace Zgeniuscoders\Zgeniuscoders\Helpers;
+namespace Zgeniuscoders\Zgeniuscoders\Twig;
 
 use Psr\Container\ContainerInterface;
 use Twig\Extension\AbstractExtension;
@@ -20,7 +20,8 @@ class TwigFunction extends AbstractExtension
     public function getFunctions(): array
     {
         return [
-          new \Twig\TwigFunction('asset',[$this, 'getAsset'])
+          new \Twig\TwigFunction('asset', [$this, 'getAsset']),
+            new \Twig\TwigFunction('storage', [$this, 'storage'])
         ];
     }
 
@@ -31,5 +32,10 @@ class TwigFunction extends AbstractExtension
     public function getAsset(string $path): string
     {
         return DIRECTORY_SEPARATOR . $path;
+    }
+
+    public function storage(string $path)
+    {
+        return DIRECTORY_SEPARATOR . 'storage' . DIRECTORY_SEPARATOR . $path;
     }
 }

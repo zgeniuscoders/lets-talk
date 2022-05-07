@@ -3,7 +3,6 @@
 
 namespace Zgeniuscoders\Zgeniuscoders\Validation;
 
-
 class ValidationError
 {
     /**
@@ -23,6 +22,8 @@ class ValidationError
         'maxLength' => 'Le champ %s doit contenir moins de %d caractères',
         'betweenLength' => 'Le champ %s doit contenir entre %d et %d caractères',
         'datetime' => 'Le champ %s doit être une date valide (%s)',
+        'email' => "L'adress email indiquer est invalide",
+        'filetype' => 'Le champ %s n\'est pas au format valide (%s)'
     ];
     private array $attributes;
 
@@ -41,8 +42,8 @@ class ValidationError
 
     public function __toString(): string
     {
-        $params = array_merge([$this->messages[$this->rule],$this->key],$this->attributes);
-        return (string)call_user_func_array('sprintf',$params);
+        $params = array_merge([$this->messages[$this->rule],$this->key], $this->attributes);
+        return (string)call_user_func_array('sprintf', $params);
     }
 
     /**

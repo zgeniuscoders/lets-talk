@@ -3,7 +3,6 @@
 
 namespace Zgeniuscoders\Zgeniuscoders\Render;
 
-
 use Twig\Environment;
 use Twig\Loader\FilesystemLoader;
 
@@ -22,7 +21,7 @@ class TwigRender implements RenderInterface
     /**
      * @param string $path
      */
-    public function __construct(FilesystemLoader $loader,Environment $twig)
+    public function __construct(FilesystemLoader $loader, Environment $twig)
     {
         $this->loader = $loader;
         $this->twig = $twig;

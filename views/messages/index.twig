@@ -2,8 +2,47 @@
 
 {% block title "Messages" %}
 
-{%  block body %}
+{%  block content %}
 
-    jdjdjdjdjdjd
+    <section class="chat-erea">
+
+        <header>
+            <a href="{{ path('home') }}" class="back-icon"><i class="fa fa-arrow-left"></i></a>
+            <img src="{{ storage(auth().profile) }}" alt="Photo de profile de {{ auth().pseudo }}">
+            <div class="details">
+                <span><a href="">{{ auth().pseudo }} {{ auth().name }}</a></span>
+                <p>En ligne</p>
+            </div>
+        </header>
+
+{#        affiche tout les message#}
+        <div class="chat-box">
+            {% for m in messages %}
+                {% if(m.sender == auth().id ) %}
+                    <div class="chat outgoing">
+                        <div class="details">
+                            <p>{{ m.message }}</p>
+                        </div>
+                    </div>
+                {% else %}
+                    <div class="chat incoming">
+                        <img src="{{ storage(receiver.profile) }}" alt="Photo de profile de {{ receiver.pseudo }}">
+                        <div class="details">
+                            <p>{{ m.message }}.</p>
+                        </div>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+
+        <form action="{{ path('message.store') }}" method="post" class="send-message">
+            {{ __csrf() }}
+            <input type="hidden" name="sender_id" value="{{ auth().id }}">
+            <input type="hidden" name="receiver_id" value="{{ receiver.id }}">
+            <input type="text" name="message" placeholder="Votre message" id="message">
+            <button type="submit"><i class="fab fa-telegram-plane"></i></button>
+        </form>
+
+    </section>
 
 {%  endblock %}

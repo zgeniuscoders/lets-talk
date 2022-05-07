@@ -14,18 +14,13 @@
 ### Migrations de donnees
 <p>Vous devez d'abbord cree une base de donnee au nom de lets-talk</p>
 
-    php vendor/bin/phinx migrate 
+    vendor/bin/doctrine orm:schema-tool:drop --force
+    vendor/bin/doctrine orm:schema-tool:create
 
 
 ## Mes contactez
 <p>
-    <a href="https://www.facebook.com">Facebook</a>
-</p>
-<p>
-    <a href="https://www.facebook.com">Instagram</a>
-</p>
-<p>
-    <a href="https://www.facebook.com">Twitter</a>
+    <a href="https://www.facebook.com/ZGeniusCoders">Facebook</a>
 </p>
 
 <p><a href="mailto:zgeniuscoders@gmail.com">Envoyer moi un email</a></p>

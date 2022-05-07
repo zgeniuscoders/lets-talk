@@ -1,12 +1,13 @@
 <?php
 
-namespace Zgeniuscoders\Zgeniuscoders\Auth;
+namespace Zgeniuscoders\Zgeniuscoders\Auth\Middleware;
 
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 use Zgeniuscoders\Zgeniuscoders\Auth\Exceptions\ForbiddenException;
+use Zgeniuscoders\Zgeniuscoders\Auth\User;
 use Zgeniuscoders\Zgeniuscoders\Helpers\Redirect;
 use Zgeniuscoders\Zgeniuscoders\Session\Flash;
 use Zgeniuscoders\Zgeniuscoders\Session\SessionInterface;
@@ -31,6 +32,8 @@ class ForbiddenMiddleware implements MiddlewareInterface
                 return $this->redirect($request);
             }
         }
+
+        return $handler->handle($request);
     }
 
     private function redirect(ServerRequestInterface $request)

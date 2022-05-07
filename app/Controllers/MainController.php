@@ -4,30 +4,32 @@
 namespace App\Controllers;
 
 
+use App\Models\User;
+use Doctrine\ORM\EntityManager;
 use GuzzleHttp\Psr7\Response;
 use Zgeniuscoders\Zgeniuscoders\Router\Router;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Zgeniuscoders\Zgeniuscoders\Render\RenderInterface;
 
-class MainController
+class MainController extends Controller
 {
-    private RenderInterface $render;
 
-    /**
-     * @param Router $router
-     */
-    public function __construct(Router $router,RenderInterface $render)
+    public function __construct(Router $router, RenderInterface $render, EntityManager $em)
     {
-        $this->render = $render;
-        $router->get('/',[$this, 'index'],'home');
+        parent::__construct($router, $render,$em);
+        $this->router->get('/',[$this, 'index'],'home');
+        $this->em = $em;
     }
 
     /**
      * @param Request $request
-     * @return Response
      */
     public function index(Request $request)
     {
-        return $this->render->render('index');
+        $users = $this->getRepository(User::class)->getUsers();
+
+        return $this->render->render('index',[
+            'users' => $users
+        ]);
     }
 }

@@ -1,8 +1,7 @@
 <?php
 
 
-namespace Zgeniuscoders\Zgeniuscoders\Helpers;
-
+namespace Zgeniuscoders\Zgeniuscoders\Twig;
 
 use Twig\Extension\AbstractExtension;
 
@@ -15,15 +14,18 @@ class TwigFormExtension extends AbstractExtension
     public function getFunctions()
     {
         return [
-          new \Twig\TwigFunction('input',
+          new \Twig\TwigFunction(
+              'input',
               [$this,'input'],
               ['is_safe' => ['html'],'needs_context' => true]
           ),
-            new \Twig\TwigFunction('textArea',
+            new \Twig\TwigFunction(
+                'textArea',
                 [$this, 'textArea'],
                 ['is_safe' => ['html'],'needs_context' => true]
             ),
-            new \Twig\TwigFunction('button',
+            new \Twig\TwigFunction(
+                'button',
                 [$this, 'button'],
                 ['is_safe' => ['html'],'needs_context' => true]
             ),
@@ -38,8 +40,7 @@ class TwigFormExtension extends AbstractExtension
     private function getErrorsHtml(array $context, string $key): string
     {
         $errors = $context['errors'][$key] ?? false;
-        if($errors)
-        {
+        if ($errors) {
             return "<small class=\"error\">{$errors}}</small>";
         }
     }
@@ -49,18 +50,17 @@ class TwigFormExtension extends AbstractExtension
      * @param string $key
      * @return array
      */
-    private function errorFields(array $context, string $key,array &$class): array
+    private function errorFields(array $context, string $key, array &$class): array
     {
         $errors = $context['errors'][$key] ?? false;
         $error = "";
-        if($errors)
-        {
-            $error = $this->getErrorsHtml($context,$key);
+        if ($errors) {
+            $error = $this->getErrorsHtml($context, $key);
             $class[] = "has-error";
         }
 
         return [
-            "class" => implode(' ',$class),
+            "class" => implode(' ', $class),
             "error" => $error
         ];
     }
@@ -73,9 +73,14 @@ class TwigFormExtension extends AbstractExtension
      * @param array $class
      * @return string
      */
-    public function input(array $context,string $key, string $label = null, string $type = "text", array $class = []): string
-    {
-        $html = $this->errorFields($context,$key,$class);
+    public function input(
+        array $context,
+        string $key,
+        string $label = null,
+        string $type = "text",
+        array $class = []
+    ): string {
+        $html = $this->errorFields($context, $key, $class);
         $error = $html["error"];
         $getClass = $html["class"];
 
@@ -91,9 +96,9 @@ class TwigFormExtension extends AbstractExtension
      * @param string $class
      * @return string
      */
-    public function textArea(array $context,string $key, string $label, string $class = ''): string
+    public function textArea(array $context, string $key, string $label, string $class = ''): string
     {
-        $error = $this->errorFields($context,$key);
+        $error = $this->errorFields($context, $key);
 
         return "<label for='{$key}'>{$label}</label>
                 <textarea name=\"{$key}\" id=\"{$key}\" class=\"{$class}\"></textarea>
