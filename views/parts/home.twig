@@ -1,0 +1,23 @@
+<div class="tab-content active" id="Home">
+    <div class="search">
+        <span class="text">Commencez la discution</span>
+        <input type="search" name="q" id="" placeholder="Rechercher par pseudo">
+        <button id="searchBtn"><i class="fa fa-search"></i></button>
+    </div>
+    {% for user in users %}
+    <div class="users-list">
+        <a href="{{ path('message.index',{uuid: user.uuid}) }}">
+            <div class="content">
+                <img src="{{ storage(user.profile) }}" alt="Photo de profil de {{ user.pseudo }}">
+                <div class="details">
+                    <span>{{ user.pseudo }} {{ user.name }}</span>
+                    <p>Vas y ecrit moi</p>
+                </div>
+            </div>
+            <div class="status-dot {{ user.status != 1 ? 'offline' : '' }}">
+                <i class="fa fa-circle"></i>
+            </div>
+        </a>
+    </div>
+    {% endfor %}
+</div>

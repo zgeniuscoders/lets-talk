@@ -1,0 +1,14 @@
+<header>
+    <div class="content">
+        <img src="{{ storage(auth().profile) }}" alt="Photo de profil de {{ auth().pseudo }}">
+        <div class="details">
+            <span><a href="">{{ auth().pseudo }} {{ auth().name }}</a></span>
+            <p>En ligne</p>
+        </div>
+    </div>
+    <form action="{{ path('logout') }}" method="POST">
+        {{ __csrf() }}
+        <input type="hidden" name="uuid" value="{{ auth().uuid }}">
+        <button class="logout" name="logout">Se deconnecter</button>
+    </form>
+</header>
