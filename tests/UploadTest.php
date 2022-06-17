@@ -3,7 +3,7 @@
 
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\UploadedFileInterface;
-use Zgeniuscoders\Zgeniuscoders\File\Upload;
+use Legacy\Legacy\File\Upload;
 
 class UploadTest extends TestCase
 {

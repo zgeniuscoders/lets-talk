@@ -1,16 +1,16 @@
 <?php
 
 use Doctrine\ORM\EntityManager;
-use Zgeniuscoders\Zgeniuscoders\Auth\AuthInterface;
-use Zgeniuscoders\Zgeniuscoders\Auth\User;
-use Zgeniuscoders\Zgeniuscoders\Database\DatabaseAuth;
-use Zgeniuscoders\Zgeniuscoders\Database\DatabaseFactory;
-use Zgeniuscoders\Zgeniuscoders\Middlewares\CSRFMiddleware;
-use Zgeniuscoders\Zgeniuscoders\Render\RenderInterface;
-use Zgeniuscoders\Zgeniuscoders\Twig\TwigRenderFactory;
-use Zgeniuscoders\Zgeniuscoders\Router\Router;
-use Zgeniuscoders\Zgeniuscoders\Session\PhpSession;
-use Zgeniuscoders\Zgeniuscoders\Session\SessionInterface;
+use Legacy\Legacy\Auth\AuthInterface;
+use Legacy\Legacy\Auth\User;
+use Legacy\Legacy\Database\DatabaseAuth;
+use Legacy\Legacy\Database\DatabaseFactory;
+use Legacy\Legacy\Middlewares\CSRFMiddleware;
+use Legacy\Legacy\Render\RenderInterface;
+use Legacy\Legacy\Twig\TwigRenderFactory;
+use Legacy\Legacy\Router\Router;
+use Legacy\Legacy\Session\PhpSession;
+use Legacy\Legacy\Session\SessionInterface;
 
 return [
 
@@ -18,13 +18,13 @@ return [
     'APP_PATH' => dirname(__DIR__) . DIRECTORY_SEPARATOR . 'app' . DIRECTORY_SEPARATOR,
 
     'MIDDLEWARES' => [
-        \Zgeniuscoders\Zgeniuscoders\Auth\Middleware\ForbiddenMiddleware::class,
-        \Zgeniuscoders\Zgeniuscoders\Auth\Middleware\AuthMiddleware::class,
-        \Zgeniuscoders\Zgeniuscoders\Middlewares\MethodMiddleware::class,
-        \Zgeniuscoders\Zgeniuscoders\Middlewares\CSRFMiddleware::class,
-        \Zgeniuscoders\Zgeniuscoders\Middlewares\RouterMiddleware::class,
-        \Zgeniuscoders\Zgeniuscoders\Middlewares\DispatcherMiddleware::class,
-        \Zgeniuscoders\Zgeniuscoders\Middlewares\NotFoundMiddleware::class
+        \Legacy\Legacy\Auth\Middleware\ForbiddenMiddleware::class,
+        \Legacy\Legacy\Auth\Middleware\AuthMiddleware::class,
+        \Legacy\Legacy\Middlewares\MethodMiddleware::class,
+        \Legacy\Legacy\Middlewares\CSRFMiddleware::class,
+        \Legacy\Legacy\Middlewares\RouterMiddleware::class,
+        \Legacy\Legacy\Middlewares\DispatcherMiddleware::class,
+        \Legacy\Legacy\Middlewares\NotFoundMiddleware::class
     ],
 
     'CONTROLLERS' => [
@@ -37,11 +37,11 @@ return [
     ],
 
     'TWIG.EXTENSION' => [
-        \Zgeniuscoders\Zgeniuscoders\Twig\AuthTwigExtension::class,
-        \Zgeniuscoders\Zgeniuscoders\Twig\CSRFExtension::class,
-        \Zgeniuscoders\Zgeniuscoders\Twig\FlashExtension::class,
-        \Zgeniuscoders\Zgeniuscoders\Twig\TwigFormExtension::class,
-        \Zgeniuscoders\Zgeniuscoders\Twig\TwigFunction::class
+        \Legacy\Legacy\Twig\AuthTwigExtension::class,
+        \Legacy\Legacy\Twig\CSRFExtension::class,
+        \Legacy\Legacy\Twig\FlashExtension::class,
+        \Legacy\Legacy\Twig\TwigFormExtension::class,
+        \Legacy\Legacy\Twig\TwigFunction::class
     ],
 
     Router::class => DI\create(),

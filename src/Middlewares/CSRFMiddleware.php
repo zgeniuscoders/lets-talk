@@ -1,15 +1,15 @@
 <?php
 
 
-namespace Zgeniuscoders\Zgeniuscoders\Middlewares;
+namespace Legacy\Legacy\Middlewares;
 
 use ArrayAccess;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface;
-use Zgeniuscoders\Zgeniuscoders\Middlewares\Exceptions\CSRFException;
-use Zgeniuscoders\Zgeniuscoders\Session\SessionInterface;
+use Legacy\Legacy\Middlewares\Exceptions\CSRFException;
+use Legacy\Legacy\Session\SessionInterface;
 
 class CSRFMiddleware implements MiddlewareInterface
 {

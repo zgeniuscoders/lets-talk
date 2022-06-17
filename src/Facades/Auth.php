@@ -1,13 +1,12 @@
 <?php
 
 
-namespace Zgeniuscoders\Zgeniuscoders\Facades;
-
+namespace Legacy\Legacy\Facades;
 
 use App\Models\User;
 use Doctrine\ORM\EntityManager;
-use Zgeniuscoders\Zgeniuscoders\Database\DatabaseAuth;
-use Zgeniuscoders\Zgeniuscoders\Session\SessionInterface;
+use Legacy\Legacy\Database\DatabaseAuth;
+use Legacy\Legacy\Session\SessionInterface;
 
 class Auth
 {

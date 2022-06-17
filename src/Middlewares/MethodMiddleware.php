@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Zgeniuscoders\Zgeniuscoders\Middlewares;
+namespace Legacy\Legacy\Middlewares;
 
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;

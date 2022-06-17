@@ -1,6 +1,6 @@
 <?php
 
-namespace Zgeniuscoders\Zgeniuscoders\Twig;
+namespace Legacy\Legacy\Twig;
 
 use Psr\Container\ContainerInterface;
 use Twig\Extension\AbstractExtension;

@@ -6,7 +6,7 @@ namespace App\Models;
 use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\Entity;
-use Zgeniuscoders\Zgeniuscoders\Auth\User as UserInterface;
+use Legacy\Legacy\Auth\User as UserInterface;
 
 
 /**
@@ -59,6 +59,11 @@ class User implements UserInterface
      */
     private $created;
 
+    /**
+     * @ORM\Column(type="integer",length=2)
+     */
+    private $status;
+
     public function getId()
     {
         return $this->id;
@@ -94,6 +99,17 @@ class User implements UserInterface
         return $this->profile;
     }
 
+    /**
+     * @return int
+     */
+    public function getStatus(): int
+    {
+        return $this->status;
+    }
+
+    /**
+     * @return DateTime
+     */
     public function getCreated(): DateTime
     {
         return $this->created;
@@ -179,4 +195,15 @@ class User implements UserInterface
 
         return $this;
     }
+
+    /**
+     * @param int
+     * @return User
+     */
+    public function setStatus(int $status): self
+    {
+        $this->status = $status;
+        return $this;
+    }
+
 }

@@ -1,10 +1,10 @@
 <?php
 
 
-namespace Zgeniuscoders\Zgeniuscoders\Twig;
+namespace Legacy\Legacy\Twig;
 
 use Twig\Extension\AbstractExtension;
-use Zgeniuscoders\Zgeniuscoders\Middlewares\CSRFMiddleware;
+use Legacy\Legacy\Middlewares\CSRFMiddleware;
 
 class CSRFExtension extends AbstractExtension
 {

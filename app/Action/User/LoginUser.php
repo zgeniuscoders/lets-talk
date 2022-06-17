@@ -5,20 +5,15 @@ namespace App\Action\User;
 use App\Controllers\Controller;
 use Doctrine\ORM\EntityManager;
 use GuzzleHttp\Psr7\ServerRequest;
-use Zgeniuscoders\Zgeniuscoders\Database\DatabaseAuth;
-use Zgeniuscoders\Zgeniuscoders\Helpers\Redirect;
-use Zgeniuscoders\Zgeniuscoders\Render\RenderInterface;
-use Zgeniuscoders\Zgeniuscoders\Router\Router;
-use Zgeniuscoders\Zgeniuscoders\Session\Flash;
-use Zgeniuscoders\Zgeniuscoders\Session\SessionInterface;
+use Legacy\Legacy\Database\DatabaseAuth;
+use Legacy\Legacy\Helpers\Redirect;
+use Legacy\Legacy\Render\RenderInterface;
+use Legacy\Legacy\Router\Router;
+use Legacy\Legacy\Session\Flash;
+use Legacy\Legacy\Session\SessionInterface;
 
 class LoginUser extends Controller
 {
-    /**
-     * @var DatabaseAuth
-     */
-    private DatabaseAuth $auth;
-
     /**
      * @var SessionInterface
      */
@@ -26,15 +21,13 @@ class LoginUser extends Controller
 
     public function __construct(Router $router, RenderInterface $render,DatabaseAuth $auth,SessionInterface $session,EntityManager $em)
     {
-        parent::__construct($router, $render,$em);
+        parent::__construct($router, $render,$em,$auth);
         $this->router->post('/login', [$this, 'login'], 'login');
-        $this->auth = $auth;
         $this->session = $session;
     }
 
-    public function login(ServerRequest $request)
+    public function login(ServerRequest $request): \Psr\Http\Message\ResponseInterface|Redirect
     {
-
         $params = $request->getParsedBody();
         $user = $this->auth->login($params["email"],$params["password"]);
 

@@ -1,16 +1,16 @@
 <?php
 
-namespace Zgeniuscoders\Zgeniuscoders\Auth\Middleware;
+namespace Legacy\Legacy\Auth\Middleware;
 
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface;
-use Zgeniuscoders\Zgeniuscoders\Auth\Exceptions\ForbiddenException;
-use Zgeniuscoders\Zgeniuscoders\Auth\User;
-use Zgeniuscoders\Zgeniuscoders\Helpers\Redirect;
-use Zgeniuscoders\Zgeniuscoders\Session\Flash;
-use Zgeniuscoders\Zgeniuscoders\Session\SessionInterface;
+use Legacy\Legacy\Auth\Exceptions\ForbiddenException;
+use Legacy\Legacy\Auth\User;
+use Legacy\Legacy\Helpers\Redirect;
+use Legacy\Legacy\Session\Flash;
+use Legacy\Legacy\Session\SessionInterface;
 
 class ForbiddenMiddleware implements MiddlewareInterface
 {
@@ -25,10 +25,8 @@ class ForbiddenMiddleware implements MiddlewareInterface
             return $handler->handle($request);
         } catch (ForbiddenException $exception) {
             return $this->redirect($request);
-        }catch (\Exception $error)
-        {
-            if(str_contains($error->getMessage(), User::class))
-            {
+        } catch (\Exception $error) {
+            if (str_contains($error->getMessage(), User::class)) {
                 return $this->redirect($request);
             }
         }

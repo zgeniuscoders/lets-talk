@@ -4,19 +4,7 @@
 
     <section class="users">
 
-        <header>
-            <div class="content">
-                <img src="{{ storage(auth().profile) }}" alt="Photo de profil de {{ auth().pseudo }}">
-                <div class="details">
-                    <span><a href="">{{ auth().pseudo }} {{ auth().name }}</a></span>
-                    <p>En ligne</p>
-                </div>
-            </div>
-            <form action="{{ path('logout') }}" method="POST">
-                {{ __csrf() }}
-                <button class="logout" name="logout">Se deconnecter</button>
-            </form>
-        </header>
+        {% include 'parts/header.twig' %}
 
         <div>
             <ul class="tabs">
@@ -25,91 +13,18 @@
                 <li><a href="#Tools"><i class="fa fa-tools"></i> Configuration</a></li>
             </ul>
 
-
             <div class="tabs-content">
-                <div class="tab-content active" id="Home">
-                    <div class="search">
-                        <span class="text">Commencez la discution</span>
-                        <input type="search" name="q" id="" placeholder="Rechercher par pseudo">
-                        <button id="searchBtn"><i class="fa fa-search"></i></button>
-                    </div>
-                    {% for user in users %}
-                    <div class="users-list">
-                        <a href="{{ path('message.index',{uuid: user.uuid}) }}">
-                            <div class="content">
-                                <img src="{{ storage(user.profile) }}" alt="Photo de profil de {{ user.pseudo }}">
-                                <div class="details">
-                                    <span>{{ user.pseudo }} {{ user.name }}</span>
-                                    <p>Vas y ecrit moi</p>
-                                </div>
-                            </div>
-                            <div class="status-dot">
-                                <i class="fa fa-circle"></i>
-                            </div>
-                        </a>
-                    </div>
-                    {% endfor %}
-                </div>
 
-                <div class="tab-content" id="Groupes">nvnvnvnvn 222222</div>
-                <div class="tab-content" id="Tools">
+                {#            chat tab#}
+                {% include 'parts/home.twig' %}
 
-                    <!-- dark mode  -->
-                    <div class="dark-mode">
-                        <label for="dark">Mode sombre</label>
-                        <input type="checkbox" name="" id="dark">
-                    </div>
+                {#                groupes#}
+                {% include 'parts/groupes.twig' %}
 
-                    <div class="form" style="padding: 0;">
-                        <form action="" method="POST" enctype="multipart/form-data">
-                            <div class="error-txt">Erreur messages</div>
-
-                            <div class="field input">
-                                <label for="name">Nom</label>
-                                <input type="text" placeholder="Nom" id="name" name="name" required>
-                            </div>
-                            <div class="field input">
-                                <label for="pseudo">Pseudo</label>
-                                <input type="text" placeholder="pseudo" id="pseudo" name="pseudo" required>
-                            </div>
-                            <div class="field input">
-                                <label for="email">Email</label>
-                                <input type="email" placeholder="Votre adress email" id="email" name="email" required>
-                            </div>
-                            <div class="field button">
-                                <input type="submit" value="Modifier">
-                            </div>
-                        </form>
-                    </div>
-
-                    <!-- password  -->
-                    <div class="form" style="padding: 0;">
-                        <form action="" method="POST" enctype="multipart/form-data">
-                            <div class="field input">
-                                <label for="password">Mot de pass</label>
-                                <input type="password" placeholder="password" id="password" name="password" required>
-                                <i class="fa fa-eye"></i>
-                            </div>
-                            <div class="field button">
-                                <input type="submit" value="Modifier">
-                            </div>
-                        </form>
-                    </div>
-
-                    <!-- profil  -->
-                    <div class="form" style="padding: 0;">
-                        <form action="" method="POST" enctype="multipart/form-data">
-                            <div class="field image">
-                                <label for="profil">Photo profil</label>
-                                <input type="file" id="profil" name="profil" required>
-                            </div>
-                            <div class="field button">
-                                <input type="submit" value="Modifier">
-                            </div>
-                        </form>
-                    </div>
-                </div>
+                {#            tools tab#}
+                {% include 'parts/tools.twig' %}
             </div>
+
         </div>
     </section>
 

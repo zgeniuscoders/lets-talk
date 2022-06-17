@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Zgeniuscoders\Zgeniuscoders\Middlewares;
+namespace Legacy\Legacy\Middlewares;
 
 use GuzzleHttp\Psr7\Response;
 use Psr\Container\ContainerInterface;
@@ -9,21 +9,19 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface;
-use Zgeniuscoders\Zgeniuscoders\Router\Route;
+use Legacy\Legacy\Router\Route;
 
 class DispatcherMiddleware implements MiddlewareInterface
 {
-    private ContainerInterface $container;
 
     /**
      * DispatcherMiddleware constructor.
      * @param ContainerInterface $container
      */
-    public function __construct(ContainerInterface $container)
+    public function __construct(private ContainerInterface $container)
     {
-
-        $this->container = $container;
     }
+
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
         $route = $request->getAttribute(Route::class);
@@ -39,6 +37,7 @@ class DispatcherMiddleware implements MiddlewareInterface
         }
 
         $response = call_user_func_array($route->getCallback(), [$request]);
+
         if (is_string($response)) {
             return new Response(body: $response);
         } elseif ($response instanceof ResponseInterface) {

@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Zgeniuscoders\Zgeniuscoders;
+namespace Legacy\Legacy;
 
 use Exception;
 use Psr\Container\ContainerExceptionInterface;
@@ -11,7 +11,7 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface;
-use Zgeniuscoders\Zgeniuscoders\Middlewares\MiddlewareException;
+use Legacy\Legacy\Middlewares\MiddlewareException;
 
 class App implements RequestHandlerInterface
 {
@@ -146,5 +146,4 @@ class App implements RequestHandlerInterface
 
         return $this->handle($request);
     }
-
 }

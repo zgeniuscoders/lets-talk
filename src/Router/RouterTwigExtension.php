@@ -1,6 +1,6 @@
 <?php
 
-namespace Zgeniuscoders\Zgeniuscoders\Router;
+namespace Legacy\Legacy\Router;
 
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;

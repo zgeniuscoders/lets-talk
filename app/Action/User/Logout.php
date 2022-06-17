@@ -6,11 +6,14 @@ namespace App\Action\User;
 
 use App\Controllers\Controller;
 use Doctrine\ORM\EntityManager;
-use Zgeniuscoders\Zgeniuscoders\Database\DatabaseAuth;
-use Zgeniuscoders\Zgeniuscoders\Helpers\Redirect;
-use Zgeniuscoders\Zgeniuscoders\Render\RenderInterface;
-use Zgeniuscoders\Zgeniuscoders\Router\Router;
-use Zgeniuscoders\Zgeniuscoders\Session\Flash;
+use Doctrine\ORM\OptimisticLockException;
+use Doctrine\ORM\ORMException;
+use GuzzleHttp\Psr7\ServerRequest;
+use Legacy\Legacy\Database\DatabaseAuth;
+use Legacy\Legacy\Helpers\Redirect;
+use Legacy\Legacy\Render\RenderInterface;
+use Legacy\Legacy\Router\Router;
+use Legacy\Legacy\Session\Flash;
 
 class Logout extends Controller
 {
@@ -19,23 +22,20 @@ class Logout extends Controller
      */
     private Flash $flash;
 
-
-    /**
-     * @var DatabaseAuth
-     */
-    private DatabaseAuth $auth;
-
     public function __construct(Router $router, RenderInterface $render, Flash $flash, DatabaseAuth $auth,EntityManager $em)
     {
-        parent::__construct($router, $render,$em);
+        parent::__construct($router, $render,$em,$auth);
         $this->router->post('/logout', [$this, 'logout'], 'logout');
         $this->flash = $flash;
-        $this->auth = $auth;
     }
 
-    public function logout()
+    /**
+     * @throws OptimisticLockException
+     * @throws ORMException
+     */
+    public function logout(ServerRequest $request)
     {
-        $this->auth->logout();
-        return  new Redirect('/login');
+        $this->auth->logout($request->getParsedBody()["uuid"]);
+        return new Redirect('/login');
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace Zgeniuscoders\Zgeniuscoders\Router;
+namespace Legacy\Legacy\Router;
 
 use GuzzleHttp\Psr7\Response;
 use Psr\Http\Message\ResponseInterface;

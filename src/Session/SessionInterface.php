@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Zgeniuscoders\Zgeniuscoders\Session;
+namespace Legacy\Legacy\Session;
 
 interface SessionInterface
 {

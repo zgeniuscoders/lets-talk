@@ -1,9 +1,9 @@
 <?php
 
 
-namespace Zgeniuscoders\Zgeniuscoders\Facades;
+namespace Legacy\Legacy\Facades;
 
-use Zgeniuscoders\Zgeniuscoders\File\Upload as UploadClass;
+use Legacy\Legacy\File\Upload as UploadClass;
 
 class Upload
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace Zgeniuscoders\Zgeniuscoders\Router;
+namespace Legacy\Legacy\Router;
 
 use Router\BaseRouter\Route as BaseRoute;
 use Router\QuickRouter;
@@ -21,7 +21,7 @@ class Router
      * @param callable $callable
      * @param array $method
      */
-    private function addRoute(string $path, string $name, callable $callable, array $method)
+    private function addRoute(string $path, string $name, callable$callable, array $method)
     {
         $this->router->addRoute(new BaseRoute($path, $callable, $method, $name));
     }

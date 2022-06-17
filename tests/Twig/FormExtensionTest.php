@@ -2,7 +2,7 @@
 
 
 use PHPUnit\Framework\TestCase;
-use Zgeniuscoders\Zgeniuscoders\Helpers\TwigFormExtension;
+use Legacy\Legacy\Helpers\TwigFormExtension;
 
 class FormExtensionTest extends TestCase
 {

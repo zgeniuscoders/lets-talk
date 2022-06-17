@@ -1,24 +1,21 @@
 <?php
 
-namespace Zgeniuscoders\Zgeniuscoders\Router;
+namespace Legacy\Legacy\Router;
 
 class Route
 {
-    private $name;
-    private $callable;
-    private $params;
     /**
      * Undocumented function
      *
      * @param string $name
-     * @param callable $callable
+     * @param $callable
      * @param array $params
      */
-    public function __construct(string $name, callable $callable, array $params)
-    {
-        $this->name = $name;
-        $this->callable = $callable;
-        $this->params = $params;
+    public function __construct(
+        private string $name,
+        private $callable,
+        private array $params
+    ) {
     }
     /**
      * Undocumented function

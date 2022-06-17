@@ -1,11 +1,11 @@
 <?php
 
 
-namespace Zgeniuscoders\Zgeniuscoders\Twig;
+namespace Legacy\Legacy\Twig;
 
 use Twig\Extension\AbstractExtension;
-use Zgeniuscoders\Zgeniuscoders\Auth\AuthInterface;
-use Zgeniuscoders\Zgeniuscoders\Auth\User;
+use Legacy\Legacy\Auth\AuthInterface;
+use Legacy\Legacy\Auth\User;
 
 class AuthTwigExtension extends AbstractExtension
 {

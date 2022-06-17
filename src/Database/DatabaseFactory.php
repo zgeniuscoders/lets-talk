@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Zgeniuscoders\Zgeniuscoders\Database;
+namespace Legacy\Legacy\Database;
 
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\ORMException;

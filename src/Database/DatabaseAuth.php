@@ -1,17 +1,19 @@
 <?php
 
-namespace Zgeniuscoders\Zgeniuscoders\Database;
+namespace Legacy\Legacy\Database;
 
 use App\Models\User as UserModel;
 use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
+use Doctrine\Persistence\ObjectRepository;
 use GuzzleHttp\Psr7\ServerRequest;
-use Zgeniuscoders\Zgeniuscoders\Auth\AuthInterface;
-use Zgeniuscoders\Zgeniuscoders\Auth\User;
-use Zgeniuscoders\Zgeniuscoders\Facades\Upload;
-use Zgeniuscoders\Zgeniuscoders\Helpers\Hash;
-use Zgeniuscoders\Zgeniuscoders\Session\SessionInterface;
+use Legacy\Legacy\Auth\AuthInterface;
+use Legacy\Legacy\Auth\User;
+use Legacy\Legacy\Facades\Upload;
+use Legacy\Legacy\Helpers\Hash;
+use Legacy\Legacy\Session\SessionInterface;
 
 class DatabaseAuth implements AuthInterface
 {
@@ -28,9 +30,36 @@ class DatabaseAuth implements AuthInterface
     }
 
     /**
+     * @param $repository
+     * @return EntityRepository|ObjectRepository
+     */
+    private function getRepository($repository): EntityRepository|ObjectRepository
+    {
+        return $this->em->getRepository($repository);
+    }
+
+    /**
+     * @throws ORMException
+     */
+    private function persist($entity)
+    {
+        $this->em->persist($entity);
+    }
+
+    /**
+     * @throws OptimisticLockException
+     * @throws ORMException
+     */
+    private function flush()
+    {
+        $this->em->flush();
+    }
+
+    /**
      * @param string $email
      * @param string $password
      * @return null|User
+     * @throws ORMException
      */
     public function login(string $email, string $password): ?User
     {
@@ -43,6 +72,11 @@ class DatabaseAuth implements AuthInterface
 
         if ($user && Hash::verify($password, $user->getPassword())) {
             $this->session->set('auth.user', $user->getId());
+
+            $user->setStatus(1);
+            $this->persist($user);
+            $this->flush();
+
             return $user;
         }
 
@@ -55,9 +89,9 @@ class DatabaseAuth implements AuthInterface
      * @throws ORMException
      * @throws OptimisticLockException
      */
-    public function register(ServerRequest $request)
+    public function register(ServerRequest $request): UserModel
     {
-        $params = array_merge($request->getParsedBody(),$request->getUploadedFiles());
+        $params = array_merge($request->getParsedBody(), $request->getUploadedFiles());
 
         $user = new \App\Models\User;
         $image = Upload::upload($params['profile']);
@@ -68,6 +102,7 @@ class DatabaseAuth implements AuthInterface
             ->setPseudo($params["pseudo"])
             ->setProfile($image)
             ->setCreated(new \DateTime())
+            ->setStatus(1)
             ->setPassword(Hash::makeHash($params['password']));
 
         $this->em->persist($user);
@@ -78,8 +113,20 @@ class DatabaseAuth implements AuthInterface
         return $user;
     }
 
-    public function logout(): void
+    /**
+     * @throws OptimisticLockException
+     * @throws ORMException
+     */
+    public function logout(string $uuid): void
     {
+        $user = $this->getRepository(UserModel::class)->findOneByUuid($uuid);
+
+//        reset the user status
+        $user->setStatus(0);
+
+        $this->persist($user);
+        $this->flush();
+
         $this->session->delete('auth.user');
     }
 
@@ -105,4 +152,5 @@ class DatabaseAuth implements AuthInterface
 
         return null;
     }
+
 }

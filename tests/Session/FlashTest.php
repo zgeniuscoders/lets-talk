@@ -5,8 +5,8 @@ namespace Session;
 
 
 use PHPUnit\Framework\TestCase;
-use Zgeniuscoders\Zgeniuscoders\Session\ArraySession;
-use Zgeniuscoders\Zgeniuscoders\Session\Flash;
+use Legacy\Legacy\Session\ArraySession;
+use Legacy\Legacy\Session\Flash;
 
 class FlashTest extends TestCase
 {

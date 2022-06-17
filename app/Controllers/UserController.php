@@ -4,15 +4,16 @@
 namespace App\Controllers;
 
 use Doctrine\ORM\EntityManager;
-use Zgeniuscoders\Zgeniuscoders\Router\Router;
-use Zgeniuscoders\Zgeniuscoders\Render\RenderInterface;
+use Legacy\Legacy\Auth\AuthInterface;
+use Legacy\Legacy\Router\Router;
+use Legacy\Legacy\Render\RenderInterface;
 
 class UserController extends Controller
 {
 
-    public function __construct(Router $router, RenderInterface $render, EntityManager $em)
+    public function __construct(Router $router, RenderInterface $render, EntityManager $em,AuthInterface $auth)
     {
-        parent::__construct($router, $render,$em);
+        parent::__construct($router, $render,$em,$auth);
         $this->router->get('/login', [$this, 'login'], 'user.login');
         $this->router->get('/register', [$this, 'register'], 'user.register');
         // $router->get('/mot-de-pass-oublier', [$this, 'forgot'], 'user.forgot');

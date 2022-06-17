@@ -1,6 +1,6 @@
 <?php
 //
-//use Zgeniuscoders\Zgeniuscoders\Validation\Validator;
+//use Legacy\Legacy\Validation\Validator;
 //
 //class ValidatorTest extends \PHPUnit\Framework\TestCase
 //{

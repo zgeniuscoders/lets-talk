@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Zgeniuscoders\Zgeniuscoders\Auth;
+namespace Legacy\Legacy\Auth;
 
 interface User
 {

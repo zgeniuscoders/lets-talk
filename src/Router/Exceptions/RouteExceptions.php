@@ -1,6 +1,6 @@
 <?php
 
-namespace Zgeniuscoders\Zgeniuscoders\Router\Exceptions;
+namespace Legacy\Legacy\Router\Exceptions;
 
 use Exception;
 

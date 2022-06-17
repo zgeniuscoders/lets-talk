@@ -19,13 +19,24 @@ class MessageRepository extends EntityRepository
      */
     public function getMessages(int $auth, int $user): mixed
     {
-
         return $this->createQueryBuilder('m')
             ->where("m.sender = :auth AND m.receive = :user")
             ->orWhere("m.sender = :user AND m.receive = :auth")
             ->setParameter('auth', $auth)
             ->setParameter('user', $user)
-            ->orderBy("m.id","DESC")
+            ->orderBy("m.id","ASC")
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function getLast(int $auth, int $user)
+    {
+        return $this->createQueryBuilder('m')
+            ->where("m.sender = :auth AND m.receive = :user")
+            ->orWhere("m.sender = :user AND m.receive = :auth")
+            ->setParameter('auth', $auth)
+            ->setParameter('user', $user)
+            ->orderBy("m.created","DESC")
             ->getQuery()
             ->getResult();
     }

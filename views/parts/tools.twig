@@ -1,0 +1,59 @@
+<div class="tab-content" id="Tools">
+
+    <!-- dark mode  -->
+    <div class="dark-mode">
+        <label for="dark">Mode sombre</label>
+        <input type="checkbox" name="" id="dark">
+    </div>
+
+    <div class="form" style="padding: 0;">
+        <form action="" method="POST" enctype="multipart/form-data">
+            <div class="error-txt">Erreur messages</div>
+
+            <div class="field input">
+                <label for="name">Nom</label>
+                <input type="text" placeholder="Nom" id="name" name="name" required>
+            </div>
+            <div class="field input">
+                <label for="pseudo">Pseudo</label>
+                <input type="text" placeholder="pseudo" id="pseudo" name="pseudo" required>
+            </div>
+            <div class="field input">
+                <label for="email">Email</label>
+                <input type="email" placeholder="Votre adress email" id="email" name="email" required>
+            </div>
+            <div class="field button">
+                <input type="submit" value="Modifier">
+            </div>
+        </form>
+    </div>
+
+    <!-- password  -->
+    <div class="form" style="padding: 0;">
+        <form action="" method="POST" enctype="multipart/form-data">
+            <div class="field input">
+                <label for="password">Mot de pass</label>
+                <input type="password" placeholder="password" id="password" name="password" required>
+                <i class="fa fa-eye"></i>
+            </div>
+            <div class="field button">
+                <input type="submit" value="Modifier">
+            </div>
+        </form>
+    </div>
+
+    <!-- profil  -->
+    <div class="form" style="padding: 0;">
+        <form action="" method="POST" enctype="multipart/form-data">
+            <div class="field image">
+                <label for="profil">Photo profil</label>
+                <input type="file" id="profil" name="profil" required>
+            </div>
+            <div class="field button">
+                <input type="submit" value="Modifier">
+            </div>
+        </form>
+    </div>
+
+
+</div>

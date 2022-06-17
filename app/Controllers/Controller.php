@@ -6,9 +6,11 @@ namespace App\Controllers;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\Persistence\ObjectRepository;
-use Zgeniuscoders\Zgeniuscoders\Render\RenderInterface;
-use Zgeniuscoders\Zgeniuscoders\Router\Router;
-use Zgeniuscoders\Zgeniuscoders\Router\RouterAware;
+use Legacy\Legacy\Auth\AuthInterface;
+use Legacy\Legacy\Auth\User;
+use Legacy\Legacy\Render\RenderInterface;
+use Legacy\Legacy\Router\Router;
+use Legacy\Legacy\Router\RouterAware;
 
 class Controller
 {
@@ -17,7 +19,8 @@ class Controller
     public function __construct(
         protected Router $router,
         protected RenderInterface $render,
-        protected EntityManager $em
+        protected EntityManager $em,
+        protected AuthInterface $auth
     )
     {
     }
@@ -25,5 +28,10 @@ class Controller
     public function getRepository($entityName): EntityRepository|ObjectRepository
     {
         return $this->em->getRepository($entityName);
+    }
+
+    public function auth(): ?User
+    {
+        return $this->auth->getUser();
     }
 }

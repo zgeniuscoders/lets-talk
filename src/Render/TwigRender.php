@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Zgeniuscoders\Zgeniuscoders\Render;
+namespace Legacy\Legacy\Render;
 
 use Twig\Environment;
 use Twig\Loader\FilesystemLoader;

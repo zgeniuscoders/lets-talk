@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Zgeniuscoders\Zgeniuscoders\Helpers;
+namespace Legacy\Legacy\Helpers;
 
 class Hash
 {

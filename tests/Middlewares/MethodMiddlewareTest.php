@@ -7,7 +7,7 @@ namespace Middlewares;
 use GuzzleHttp\Psr7\ServerRequest;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Server\RequestHandlerInterface;
-use Zgeniuscoders\Zgeniuscoders\Middlewares\MethodMiddleware;
+use Legacy\Legacy\Middlewares\MethodMiddleware;
 
 class MethodMiddlewareTest extends TestCase
 {

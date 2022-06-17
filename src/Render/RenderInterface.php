@@ -1,6 +1,6 @@
 <?php
 
-namespace Zgeniuscoders\Zgeniuscoders\Render;
+namespace Legacy\Legacy\Render;
 
 interface RenderInterface
 {

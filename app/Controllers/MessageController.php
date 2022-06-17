@@ -9,21 +9,18 @@ use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
 use GuzzleHttp\Psr7\ServerRequest;
 use Psr\Http\Message\ResponseInterface;
-use Zgeniuscoders\Zgeniuscoders\Auth\AuthInterface;
-use Zgeniuscoders\Zgeniuscoders\Render\RenderInterface;
-use Zgeniuscoders\Zgeniuscoders\Router\Router;
+use Legacy\Legacy\Auth\AuthInterface;
+use Legacy\Legacy\Render\RenderInterface;
+use Legacy\Legacy\Router\Router;
 
 class MessageController extends Controller
 {
 
-    private AuthInterface $auth;
-
     public function __construct(Router $router, RenderInterface $render, EntityManager $em, AuthInterface $auth)
     {
-        parent::__construct($router, $render, $em);
+        parent::__construct($router, $render, $em,$auth);
         $this->router->get('/message/{uuid:[a-z\-0-9]+}',[$this,'index'],'message.index');
         $this->router->post('/message',[$this,'store'],'message.store');
-        $this->auth = $auth;
     }
 
     /**
@@ -38,7 +35,8 @@ class MessageController extends Controller
         $receiver = $this->em->getRepository(User::class)
             ->findOneByUuid($request->getAttribute('uuid'));
 
-        $messages = $this->getRepository(Message::class)->getMessages(2,3);
+        $messages = $this->getRepository(Message::class)
+            ->getMessages($this->auth->getUser()->getId(),$receiver->getId());
 
         return $this->render->render('messages/index',compact('receiver','messages'));
 
@@ -61,6 +59,9 @@ class MessageController extends Controller
         $this->em->persist($message);
         $this->em->flush();
 
-        return $this->redirect('message.index');
+        $receiver = $this->em->getRepository(User::class)
+            ->findOneById($params['receiver_id']);
+
+        return $this->redirect('message.index',['uuid' => $receiver->getUuid()]);
     }
 }

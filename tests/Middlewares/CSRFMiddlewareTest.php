@@ -7,8 +7,8 @@ namespace Middlewares;
 use GuzzleHttp\Psr7\ServerRequest;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Server\RequestHandlerInterface;
-use Zgeniuscoders\Zgeniuscoders\Middlewares\CSRFMiddleware;
-use Zgeniuscoders\Zgeniuscoders\Middlewares\Exceptions\CSRFException;
+use Legacy\Legacy\Middlewares\CSRFMiddleware;
+use Legacy\Legacy\Middlewares\Exceptions\CSRFException;
 
 class CSRFMiddlewareTest  extends TestCase
 {

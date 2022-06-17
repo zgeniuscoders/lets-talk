@@ -1,10 +1,10 @@
 <?php
 
 
-namespace Zgeniuscoders\Zgeniuscoders\Twig;
+namespace Legacy\Legacy\Twig;
 
 use Twig\Extension\AbstractExtension;
-use Zgeniuscoders\Zgeniuscoders\Session\Flash;
+use Legacy\Legacy\Session\Flash;
 
 class FlashExtension extends AbstractExtension
 {

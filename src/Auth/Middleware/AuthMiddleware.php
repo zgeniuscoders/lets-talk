@@ -1,14 +1,14 @@
 <?php
 
 
-namespace Zgeniuscoders\Zgeniuscoders\Auth\Middleware;
+namespace Legacy\Legacy\Auth\Middleware;
 
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface;
-use Zgeniuscoders\Zgeniuscoders\Auth\AuthInterface;
-use Zgeniuscoders\Zgeniuscoders\Auth\Exceptions\ForbiddenException;
+use Legacy\Legacy\Auth\AuthInterface;
+use Legacy\Legacy\Auth\Exceptions\ForbiddenException;
 
 class AuthMiddleware implements MiddlewareInterface
 {

@@ -3,7 +3,7 @@
 //namespace Test;
 //
 //use App\Controllers\MainController;
-//use Zgeniuscoders\Zgeniuscoders\Module\App;
+//use Legacy\Legacy\Module\App;
 //use GuzzleHttp\Psr7\ServerRequest;
 //use PHPUnit\Framework\TestCase;
 //

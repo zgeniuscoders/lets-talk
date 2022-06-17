@@ -1,13 +1,13 @@
 <?php
 
 
-namespace Zgeniuscoders\Zgeniuscoders\Twig;
+namespace Legacy\Legacy\Twig;
 
 use Psr\Container\ContainerInterface;
 use Twig\Environment;
 use Twig\Loader\FilesystemLoader;
-use Zgeniuscoders\Zgeniuscoders\Render\TwigRender;
-use Zgeniuscoders\Zgeniuscoders\Router\RouterTwigExtension;
+use Legacy\Legacy\Render\TwigRender;
+use Legacy\Legacy\Router\RouterTwigExtension;
 use function DI\get;
 
 class TwigRenderFactory

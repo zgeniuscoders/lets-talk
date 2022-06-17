@@ -12,12 +12,12 @@ use Doctrine\ORM\Mapping\ClassMetadata;
 class UserRepository extends EntityRepository
 {
 
-    public function getUsers()
+    public function getUsers(int $id)
     {
 
         return $this->createQueryBuilder('u')
             ->where('u.id != :id')
-            ->setParameter('id',2)
+            ->setParameter('id',$id)
             ->orderBy('u.created','DESC')
             ->getQuery()
             ->getResult();

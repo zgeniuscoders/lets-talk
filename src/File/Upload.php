@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Zgeniuscoders\Zgeniuscoders\File;
+namespace Legacy\Legacy\File;
 
 use Psr\Http\Message\UploadedFileInterface;
 

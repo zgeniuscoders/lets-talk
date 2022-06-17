@@ -3,8 +3,3 @@
 
 namespace App\Enums;
 
-
-class UserStatut
-{
-
-}

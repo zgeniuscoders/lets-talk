@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Zgeniuscoders\Zgeniuscoders\Auth\Exceptions;
+namespace Legacy\Legacy\Auth\Exceptions;
 
 class ForbiddenException extends \Exception
 {

@@ -4,7 +4,7 @@ use App\Action\User\CreateNewUser;
 use App\Action\User\LoginUser;
 use App\Action\User\Logout;
 use App\Controllers\MessageController;
-use Zgeniuscoders\Zgeniuscoders\App;
+use Legacy\Legacy\App;
 use App\Controllers\MainController;
 use App\Controllers\UserController;
 

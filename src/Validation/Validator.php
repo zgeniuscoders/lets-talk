@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Zgeniuscoders\Zgeniuscoders\Validation;
+namespace Legacy\Legacy\Validation;
 
 use Psr\Http\Message\UploadedFileInterface;
 
